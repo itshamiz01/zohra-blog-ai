@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Install Zohra Blog AI on your phone</title>
+  <meta name="theme-color" content="#123B2A">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Zohra Blog">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #FAF9F5; color: #334155; font-family: ui-sans-serif, system-ui, sans-serif; }
+    .gold-card { background: #FFFFFF; border: 1px solid #E7DCB8; box-shadow: 0 1px 3px rgba(18, 59, 42, 0.06); }
+    .tab-active { background: #123B2A; color: #FFFFFF; }
+    .tab-idle { background: #F7F2E2; color: #123B2A; }
+  </style>
+</head>
+<body class="min-h-screen antialiased">
+  <main class="max-w-xl mx-auto px-5 py-10">
+
+    <!-- Brand -->
+    <div class="flex items-center gap-3 mb-10">
+      <div class="w-11 h-11 rounded-xl flex items-center justify-center text-2xl font-black" style="background:#123B2A;color:#C9A227;">Z</div>
+      <div>
+        <div class="text-lg font-bold" style="color:#123B2A;">Zohra Blog AI</div>
+        <div class="text-xs text-stone-500">Your publishing command center, in your pocket.</div>
+      </div>
+    </div>
+
+    <p class="text-[11px] font-semibold tracking-widest" style="color:#A8842A;">YOUR PUBLISHING OS, ONE TAP AWAY</p>
+    <h1 class="text-3xl font-extrabold mt-2 mb-3" style="color:#123B2A;">Run Zohra Blog AI right from your home screen.</h1>
+    <p class="text-stone-600 mb-8">Add Zohra Blog AI to your phone's home screen and open it like a normal app. No app store download needed.</p>
+
+    <a href="/" class="inline-block px-5 py-2.5 rounded-lg text-white text-sm font-semibold mb-10" style="background:#059669;">Open Zohra Blog AI</a>
+
+    <!-- Steps -->
+    <h2 class="text-xl font-bold mb-1" style="color:#123B2A;">A home for your command center.</h2>
+    <p class="text-sm text-stone-500 mb-4">Choose your phone. It only takes a moment.</p>
+
+    <div class="flex gap-2 mb-4">
+      <button id="tab-android" class="tab-active px-4 py-2 rounded-lg text-sm font-semibold" onclick="showTab('android')">Android · Chrome</button>
+      <button id="tab-iphone" class="tab-idle px-4 py-2 rounded-lg text-sm font-semibold" onclick="showTab('iphone')">iPhone · Safari</button>
+    </div>
+
+    <div id="panel-android" class="gold-card rounded-xl p-5 space-y-4">
+      <div class="flex gap-3">
+        <div class="w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center shrink-0" style="background:#C9A227;">1</div>
+        <div><div class="font-semibold text-sm" style="color:#123B2A;">Open Zohra Blog AI in Chrome</div>
+        <p class="text-sm text-stone-500">Open this site's link in Chrome on your Android phone.</p></div>
+      </div>
+      <div class="flex gap-3">
+        <div class="w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center shrink-0" style="background:#C9A227;">2</div>
+        <div><div class="font-semibold text-sm" style="color:#123B2A;">Tap Install app</div>
+        <p class="text-sm text-stone-500">Tap the ⋮ menu in Chrome, then tap <strong>Install app</strong> (or "Add to Home screen").</p></div>
+      </div>
+      <div class="flex gap-3">
+        <div class="w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center shrink-0" style="background:#C9A227;">3</div>
+        <div><div class="font-semibold text-sm" style="color:#123B2A;">Confirm and sign in</div>
+        <p class="text-sm text-stone-500">Tap Install, then launch Zohra Blog AI from your home screen and sign in with your admin account. It opens in its own app-style window.</p></div>
+      </div>
+    </div>
+
+    <div id="panel-iphone" class="gold-card rounded-xl p-5 space-y-4 hidden">
+      <div class="flex gap-3">
+        <div class="w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center shrink-0" style="background:#C9A227;">1</div>
+        <div><div class="font-semibold text-sm" style="color:#123B2A;">Open Zohra Blog AI in Safari</div>
+        <p class="text-sm text-stone-500">Open this site's link in Safari on your iPhone or iPad.</p></div>
+      </div>
+      <div class="flex gap-3">
+        <div class="w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center shrink-0" style="background:#C9A227;">2</div>
+        <div><div class="font-semibold text-sm" style="color:#123B2A;">Share → Add to Home Screen</div>
+        <p class="text-sm text-stone-500">Tap the Share button (square with an upward arrow), scroll down, and tap "Add to Home Screen".</p></div>
+      </div>
+      <div class="flex gap-3">
+        <div class="w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center shrink-0" style="background:#C9A227;">3</div>
+        <div><div class="font-semibold text-sm" style="color:#123B2A;">Tap Add and sign in</div>
+        <p class="text-sm text-stone-500">Tap Add, then launch Zohra Blog AI from your home screen and sign in with your admin account.</p></div>
+      </div>
+    </div>
+
+    <!-- Link box -->
+    <h2 class="text-xl font-bold mt-10 mb-1" style="color:#123B2A;">Open this link on your phone.</h2>
+    <p class="text-sm text-stone-500 mb-3">A little link. Your whole publishing space.</p>
+    <div class="gold-card rounded-xl p-4 flex items-center gap-2">
+      <input id="install-link" readonly value="https://zohra-blog-ai.vercel.app/install" class="flex-1 text-sm bg-transparent outline-none text-stone-600">
+      <button onclick="copyLink()" class="px-3 py-1.5 rounded-lg text-white text-xs font-semibold shrink-0" style="background:#059669;">Copy link</button>
+    </div>
+    <p id="copied" class="text-xs mt-2 hidden" style="color:#059669;">Link copied.</p>
+
+    <!-- Note -->
+    <h2 class="text-xl font-bold mt-10 mb-2" style="color:#123B2A;">A little note.</h2>
+    <p class="text-sm text-stone-500">Zohra Blog AI runs in the cloud, so the app on your phone needs an internet connection — everything you see is live from the server, on any device you sign in from.</p>
+
+    <footer class="text-center text-xs text-stone-400 mt-12">Made to publish. At your pace.</footer>
+  </main>
+
+  <script>
+    function showTab(which) {
+      var android = which === 'android';
+      document.getElementById('panel-android').classList.toggle('hidden', !android);
+      document.getElementById('panel-iphone').classList.toggle('hidden', android);
+      document.getElementById('tab-android').className = (android ? 'tab-active' : 'tab-idle') + ' px-4 py-2 rounded-lg text-sm font-semibold';
+      document.getElementById('tab-iphone').className = (!android ? 'tab-active' : 'tab-idle') + ' px-4 py-2 rounded-lg text-sm font-semibold';
+    }
+    function copyLink() {
+      var el = document.getElementById('install-link');
+      el.select();
+      if (navigator.clipboard) { navigator.clipboard.writeText(el.value); }
+      else { document.execCommand('copy'); }
+      document.getElementById('copied').classList.remove('hidden');
+    }
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>
