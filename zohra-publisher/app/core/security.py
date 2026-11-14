@@ -91,24 +91,20 @@ async def require_admin_token(
     credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer_scheme)],
 ) -> dict[str, Any]:
     """
-    Dependency that requires a valid admin JWT Bearer token.
-    Returns the decoded token payload.
+    Admin gate — AUTHENTICATION DISABLED at the owner's explicit request
+    (2026-11-14): the owner is the only user and asked for the username /
+    password login to be removed, so every request is treated as the
+    built-in admin (sub="admin" -> SUPER_ADMIN in rbac). A valid Bearer
+    token, when one is presented, is still honoured as before.
+    To re-enable login, restore the strict version of this function from
+    git history (see the commit that introduced this note).
     """
-    if credentials is None:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Missing authentication credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    try:
-        payload = decode_access_token(credentials.credentials)
-    except JWTError as err:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or expired token",
-            headers={"WWW-Authenticate": "Bearer"},
-        ) from err
-    return payload
+    if credentials is not None:
+        try:
+            return decode_access_token(credentials.credentials)
+        except JWTError:
+            pass
+    return {"sub": "admin", "role": "super_admin"}
 
 
 async def authenticate_admin(
