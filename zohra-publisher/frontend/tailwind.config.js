@@ -9,21 +9,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: '#090d16',
-        card: '#111827',
-        border: '#1f2937',
+        background: '#FAF9F5',
+        card: '#FFFFFF',
+        border: '#E7DCB8',
         primary: {
-          50: '#eff6ff',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
+          50: '#ecfdf5',
+          500: '#10b981',
+          600: '#059669',
+          700: '#047857',
         },
         status: {
           healthy: '#10b981',
-          warning: '#f59e0b',
+          warning: '#C9A227',
           critical: '#ef4444',
           paused: '#6b7280',
-          running: '#3b82f6',
+          running: '#059669',
         }
       },
     },

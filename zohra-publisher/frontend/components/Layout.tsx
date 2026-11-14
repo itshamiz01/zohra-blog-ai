@@ -89,15 +89,15 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   const isPaused = autonomy?.autonomy_status === "PAUSED";
 
   return (
-    <div className="flex h-screen bg-[#090d16] text-slate-100 antialiased overflow-hidden">
+    <div className="flex h-screen bg-[#090d16] text-[#123B2A] antialiased overflow-hidden">
       {/* Sidebar Navigation */}
-      <aside className="w-64 border-r border-slate-800 bg-slate-950/60 backdrop-blur-md flex flex-col justify-between">
+      <aside className="w-64 border-r border-[#E7DCB8] bg-[#FAF9F5]/60 backdrop-blur-md flex flex-col justify-between">
         <div>
           {/* Brand */}
-          <div className="p-4 border-b border-slate-800/80 flex items-center justify-between">
+          <div className="p-4 border-b border-[#E7DCB8]/80 flex items-center justify-between">
             <div>
-              <div className="text-sm font-bold tracking-widest text-blue-400 uppercase">ZOHRA OS</div>
-              <div className="text-xs text-slate-400">Autonomous Publishing</div>
+              <div className="text-sm font-bold tracking-widest text-emerald-600 uppercase">ZOHRA OS</div>
+              <div className="text-xs text-stone-500">Autonomous Publishing</div>
             </div>
             <StatusBadge status={isPaused ? "PAUSED" : "HEALTHY"} size="sm" />
           </div>
@@ -112,8 +112,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                   href={item.href}
                   className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                     active
-                      ? "bg-blue-600/20 text-blue-400 border border-blue-500/30 font-semibold"
-                      : "text-slate-400 hover:text-slate-200 hover:bg-slate-900/60"
+                      ? "bg-emerald-600/20 text-emerald-600 border border-[#C9A227]/30 font-semibold"
+                      : "text-stone-500 hover:text-stone-800 hover:bg-white/60"
                   }`}
                 >
                   {item.icon}
@@ -125,7 +125,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         </div>
 
         {/* User / Version footer */}
-        <div className="p-3 border-t border-slate-800 text-xs text-slate-500 flex justify-between items-center">
+        <div className="p-3 border-t border-[#E7DCB8] text-xs text-stone-400 flex justify-between items-center">
           <span>v1.0.0 Production</span>
           <span className="font-mono">UTC</span>
         </div>
@@ -134,17 +134,17 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Top Operational Header */}
-        <header className="h-14 border-b border-slate-800 bg-slate-950/40 backdrop-blur-md px-6 flex items-center justify-between">
+        <header className="h-14 border-b border-[#E7DCB8] bg-[#FAF9F5]/40 backdrop-blur-md px-6 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <span className="text-xs font-mono text-slate-400">Mode:</span>
-            <span className="text-xs font-semibold px-2 py-0.5 bg-slate-800 border border-slate-700 rounded-md text-slate-200">
+            <span className="text-xs font-mono text-stone-500">Mode:</span>
+            <span className="text-xs font-semibold px-2 py-0.5 bg-[#F7F2E2] border border-[#D8C78F] rounded-md text-stone-800">
               {autonomy?.cost_mode || "NORMAL"}
             </span>
 
-            <span className="text-xs text-slate-500">|</span>
+            <span className="text-xs text-stone-400">|</span>
 
-            <span className="text-xs text-slate-400">
-              Spend Today: <span className="font-mono text-slate-200">${autonomy?.spend_today_usd?.toFixed(2) || "0.00"}</span>
+            <span className="text-xs text-stone-500">
+              Spend Today: <span className="font-mono text-stone-800">${autonomy?.spend_today_usd?.toFixed(2) || "0.00"}</span>
             </span>
           </div>
 
@@ -178,13 +178,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
         {/* Global Pause Alert Banner */}
         {isPaused && (
-          <div className="bg-rose-950/60 border-b border-rose-500/30 px-6 py-2 flex items-center justify-between text-xs text-rose-300">
+          <div className="bg-rose-50/60 border-b border-rose-500/30 px-6 py-2 flex items-center justify-between text-xs text-rose-500">
             <div className="flex items-center gap-2">
-              <ShieldAlert className="w-4 h-4 text-rose-400" />
+              <ShieldAlert className="w-4 h-4 text-rose-600" />
               <span className="font-semibold">GLOBAL AUTONOMY PAUSED:</span>
               <span>All autonomous publishing, drafting, and research actions are currently locked.</span>
             </div>
-            <span className="text-slate-400 font-mono">Kill switch engaged</span>
+            <span className="text-stone-500 font-mono">Kill switch engaged</span>
           </div>
         )}
 

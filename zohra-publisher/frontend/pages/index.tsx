@@ -62,12 +62,12 @@ export default function OverviewPage() {
         {/* Header Title & Refresh */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-slate-100">Publishing Command Center</h1>
-            <p className="text-xs text-slate-400">Autonomous intelligence, operations & multi-site governance</p>
+            <h1 className="text-xl font-bold tracking-tight text-[#123B2A]">Publishing Command Center</h1>
+            <p className="text-xs text-stone-500">Autonomous intelligence, operations & multi-site governance</p>
           </div>
           <button
             onClick={loadData}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium border border-slate-700 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#F7F2E2] hover:bg-[#EFE6C8] text-stone-800 rounded-lg text-xs font-medium border border-[#D8C78F] transition-colors"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
             Refresh
@@ -92,13 +92,13 @@ export default function OverviewPage() {
             label="Published Today"
             value={snapshot?.published_today || 0}
             sublabel="Verified Articles"
-            icon={<CheckCircle2 className="w-4 h-4 text-emerald-400" />}
+            icon={<CheckCircle2 className="w-4 h-4 text-emerald-600" />}
           />
           <MetricCard
             label="In Pipeline"
             value={snapshot?.articles_in_pipeline || 0}
             sublabel="Active Drafting Jobs"
-            icon={<FileText className="w-4 h-4 text-blue-400" />}
+            icon={<FileText className="w-4 h-4 text-emerald-600" />}
           />
           <MetricCard
             label="Pending Approvals"
@@ -111,26 +111,26 @@ export default function OverviewPage() {
             label="Spend Today"
             value={`$${snapshot?.spend_today_usd?.toFixed(2) || "0.00"}`}
             sublabel={`Limit: $${snapshot?.daily_budget_usd?.toFixed(2) || "50.00"}`}
-            icon={<Coins className="w-4 h-4 text-amber-400" />}
+            icon={<Coins className="w-4 h-4 text-[#A8842A]" />}
           />
         </div>
 
         {/* 12-Stage Operational Pipeline Progress Bar */}
-        <div className="p-5 bg-slate-900/60 border border-slate-800 rounded-2xl">
+        <div className="p-5 bg-white/60 border border-[#E7DCB8] rounded-2xl">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-slate-200">Autonomous Content Lifecycle</h2>
-            <span className="text-xs text-slate-500">12 Progressive Verification Stages</span>
+            <h2 className="text-sm font-semibold text-stone-800">Autonomous Content Lifecycle</h2>
+            <span className="text-xs text-stone-400">12 Progressive Verification Stages</span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2">
             {pipelineStages.map((stage, idx) => (
               <div
                 key={stage.name}
-                className="p-3 bg-slate-950 border border-slate-800 rounded-xl hover:border-slate-700 transition-colors"
+                className="p-3 bg-[#FAF9F5] border border-[#E7DCB8] rounded-xl hover:border-[#D8C78F] transition-colors"
               >
-                <div className="text-[10px] font-mono text-slate-500 uppercase">{idx + 1}. Stage</div>
-                <div className="text-xs font-semibold text-slate-300 truncate mt-0.5">{stage.name}</div>
-                <div className="mt-2 text-lg font-bold text-blue-400 font-mono">{stage.count}</div>
+                <div className="text-[10px] font-mono text-stone-400 uppercase">{idx + 1}. Stage</div>
+                <div className="text-xs font-semibold text-stone-600 truncate mt-0.5">{stage.name}</div>
+                <div className="mt-2 text-lg font-bold text-emerald-600 font-mono">{stage.count}</div>
               </div>
             ))}
           </div>
@@ -139,16 +139,16 @@ export default function OverviewPage() {
         {/* Two-Column: Live Feed & Content In Flight */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Content In-Flight Table */}
-          <div className="lg:col-span-2 p-5 bg-slate-900/60 border border-slate-800 rounded-2xl">
-            <h2 className="text-sm font-semibold text-slate-200 mb-3">Published Registry & Pipeline</h2>
+          <div className="lg:col-span-2 p-5 bg-white/60 border border-[#E7DCB8] rounded-2xl">
+            <h2 className="text-sm font-semibold text-stone-800 mb-3">Published Registry & Pipeline</h2>
             {pipeline.length === 0 ? (
-              <div className="text-center py-8 text-xs text-slate-500">
+              <div className="text-center py-8 text-xs text-stone-400">
                 No articles recorded in database. Run discovery to populate pipeline.
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="border-b border-slate-800 text-slate-400 uppercase tracking-wider text-[10px]">
+                  <thead className="border-b border-[#E7DCB8] text-stone-500 uppercase tracking-wider text-[10px]">
                     <tr>
                       <th className="pb-2">Title</th>
                       <th className="pb-2">Stage</th>
@@ -157,24 +157,24 @@ export default function OverviewPage() {
                       <th className="pb-2">Date</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60 text-slate-300">
+                  <tbody className="divide-y divide-[#E7DCB8]/60 text-stone-600">
                     {pipeline.slice(0, 8).map((art) => (
-                      <tr key={art.id} className="hover:bg-slate-800/30">
-                        <td className="py-2.5 font-medium text-slate-100 max-w-[200px] truncate">
+                      <tr key={art.id} className="hover:bg-[#F7F2E2]/30">
+                        <td className="py-2.5 font-medium text-[#123B2A] max-w-[200px] truncate">
                           {art.title}
                         </td>
                         <td className="py-2.5">
                           <StatusBadge status={art.stage} size="sm" />
                         </td>
                         <td className="py-2.5">
-                          <span className="px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-400 text-[10px] border border-emerald-500/20">
+                          <span className="px-2 py-0.5 rounded bg-emerald-50/60 text-emerald-600 text-[10px] border border-emerald-500/20">
                             {art.verification_status}
                           </span>
                         </td>
-                        <td className="py-2.5 font-mono text-[11px] text-slate-400">
+                        <td className="py-2.5 font-mono text-[11px] text-stone-500">
                           {art.wordpress_post_id ? `#${art.wordpress_post_id}` : "Pending"}
                         </td>
-                        <td className="py-2.5 text-slate-500 text-[11px]">
+                        <td className="py-2.5 text-stone-400 text-[11px]">
                           {new Date(art.created_at).toLocaleDateString()}
                         </td>
                       </tr>
@@ -186,38 +186,38 @@ export default function OverviewPage() {
           </div>
 
           {/* Operational Live Feed */}
-          <div className="p-5 bg-slate-900/60 border border-slate-800 rounded-2xl flex flex-col justify-between">
+          <div className="p-5 bg-white/60 border border-[#E7DCB8] rounded-2xl flex flex-col justify-between">
             <div>
-              <h2 className="text-sm font-semibold text-slate-200 mb-3">Live Operational Feed</h2>
+              <h2 className="text-sm font-semibold text-stone-800 mb-3">Live Operational Feed</h2>
               <div className="space-y-3">
                 <div className="flex gap-2.5 text-xs">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 shrink-0" />
                   <div>
-                    <div className="text-slate-300 font-medium">Automatic Pre-publish check passed</div>
-                    <div className="text-[10px] text-slate-500">Zero factual claim disputes detected</div>
+                    <div className="text-stone-600 font-medium">Automatic Pre-publish check passed</div>
+                    <div className="text-[10px] text-stone-400">Zero factual claim disputes detected</div>
                   </div>
                 </div>
                 <div className="flex gap-2.5 text-xs">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#C9A227] mt-1.5 shrink-0" />
                   <div>
-                    <div className="text-slate-300 font-medium">CostGovernor: Budget checked</div>
-                    <div className="text-[10px] text-slate-500">NORMAL mode active at 4.2% daily utilization</div>
+                    <div className="text-stone-600 font-medium">CostGovernor: Budget checked</div>
+                    <div className="text-[10px] text-stone-400">NORMAL mode active at 4.2% daily utilization</div>
                   </div>
                 </div>
                 <div className="flex gap-2.5 text-xs">
-                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 shrink-0" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#C9A227] mt-1.5 shrink-0" />
                   <div>
-                    <div className="text-slate-300 font-medium">Backup verification passed</div>
-                    <div className="text-[10px] text-slate-500">SHA-256 checksum verified in sandbox</div>
+                    <div className="text-stone-600 font-medium">Backup verification passed</div>
+                    <div className="text-[10px] text-stone-400">SHA-256 checksum verified in sandbox</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-800 mt-4">
+            <div className="pt-4 border-t border-[#E7DCB8] mt-4">
               <button
                 onClick={() => api.triggerBackup(true).then(() => alert("Backup generated!"))}
-                className="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700 transition-colors"
+                className="w-full py-2 bg-[#F7F2E2] hover:bg-[#EFE6C8] text-stone-800 text-xs font-semibold rounded-lg border border-[#D8C78F] transition-colors"
               >
                 Trigger On-Demand Backup
               </button>

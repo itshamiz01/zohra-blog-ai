@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #FAF9F5;
+  --gold: #C9A227;
+  --gold-deep: #A8842A;
+  --gold-soft: #E7DCB8;
+  --gold-pale: #F7F2E2;
+  --deep-green: #123B2A;
+}
+
+html {
+  background-color: var(--cream);
+}
+
+body {
+  background-color: var(--cream);
+  color: #44403C;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+::selection {
+  background-color: rgba(201, 162, 39, 0.35);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--gold-pale);
+}
+::-webkit-scrollbar-thumb {
+  background: #D8C78F;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}

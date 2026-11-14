@@ -38,12 +38,12 @@ export default function AlertsPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-slate-100">Operational Alerts & Triage</h1>
-            <p className="text-xs text-slate-400">Deduplicated operational events, quota warnings & system anomalies</p>
+            <h1 className="text-xl font-bold tracking-tight text-[#123B2A]">Operational Alerts & Triage</h1>
+            <p className="text-xs text-stone-500">Deduplicated operational events, quota warnings & system anomalies</p>
           </div>
           <button
             onClick={loadAlerts}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium border border-slate-700"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#F7F2E2] hover:bg-[#EFE6C8] text-stone-800 rounded-lg text-xs font-medium border border-[#D8C78F]"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
             Refresh
@@ -51,31 +51,31 @@ export default function AlertsPage() {
         </div>
 
         {alerts.length === 0 ? (
-          <div className="p-12 text-center bg-slate-900/60 border border-slate-800 rounded-2xl">
-            <CheckCircle className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
-            <div className="text-sm font-semibold text-slate-200">Zero Unresolved Alerts</div>
-            <div className="text-xs text-slate-500 mt-1">All subsystems and site integrations are healthy.</div>
+          <div className="p-12 text-center bg-white/60 border border-[#E7DCB8] rounded-2xl">
+            <CheckCircle className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
+            <div className="text-sm font-semibold text-stone-800">Zero Unresolved Alerts</div>
+            <div className="text-xs text-stone-400 mt-1">All subsystems and site integrations are healthy.</div>
           </div>
         ) : (
           <div className="space-y-3">
             {alerts.map((alert) => (
               <div
                 key={alert.id}
-                className="p-4 bg-slate-900/60 border border-slate-800 rounded-xl flex items-center justify-between gap-4"
+                className="p-4 bg-white/60 border border-[#E7DCB8] rounded-xl flex items-center justify-between gap-4"
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <StatusBadge status={alert.severity} size="sm" />
-                    <span className="text-xs font-mono text-slate-400">[{alert.category}]</span>
-                    <span className="text-sm font-semibold text-slate-100">{alert.title}</span>
+                    <span className="text-xs font-mono text-stone-500">[{alert.category}]</span>
+                    <span className="text-sm font-semibold text-[#123B2A]">{alert.title}</span>
                     {alert.occurrence_count > 1 && (
-                      <span className="px-2 py-0.5 rounded-full bg-slate-800 text-[10px] text-amber-300 font-mono border border-slate-700">
+                      <span className="px-2 py-0.5 rounded-full bg-[#F7F2E2] text-[10px] text-[#A8842A] font-mono border border-[#D8C78F]">
                         {alert.occurrence_count}x occurrences
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-slate-300">{alert.message}</p>
-                  <div className="text-[10px] text-slate-500 font-mono">
+                  <p className="text-xs text-stone-600">{alert.message}</p>
+                  <div className="text-[10px] text-stone-400 font-mono">
                     Source: {alert.source} • Status: {alert.status} • {new Date(alert.created_at).toLocaleString()}
                   </div>
                 </div>
@@ -84,7 +84,7 @@ export default function AlertsPage() {
                   {alert.status === "OPEN" && (
                     <button
                       onClick={() => handleAck(alert.id)}
-                      className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-lg border border-slate-700 font-medium"
+                      className="px-3 py-1.5 bg-[#F7F2E2] hover:bg-[#EFE6C8] text-stone-800 text-xs rounded-lg border border-[#D8C78F] font-medium"
                     >
                       Acknowledge
                     </button>
