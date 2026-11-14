@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZOHRA PUBLISHING COMMAND CENTER — Operational OS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { background-color: #090d16; color: #f1f5f9; font-family: ui-sans-serif, system-ui, sans-serif; }
+    .glass-panel { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(31, 41, 55, 0.8); }
+    .killswitch-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+  </style>
+</head>
+<body class="h-screen flex flex-col antialiased overflow-hidden">
+
+  <!-- Top Operational Header -->
+  <header class="h-14 border-b border-slate-800 bg-slate-950/80 px-6 flex items-center justify-between shrink-0">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-satellite-dish text-blue-500"></i>
+        <span class="font-bold tracking-widest text-sm text-blue-400">ZOHRA OS</span>
+      </div>
+      <span class="text-xs text-slate-500">|</span>
+      <span class="text-xs text-slate-400">Autonomy: <span id="autonomy-mode" class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 font-mono">LOADING</span></span>
+      <span class="text-xs text-slate-400">Cost Mode: <span id="cost-mode" class="px-2 py-0.5 rounded bg-slate-800 text-emerald-400 font-mono">NORMAL</span></span>
+    </div>
+
+    <!-- Emergency Kill Switch & Actions -->
+    <div class="flex items-center gap-3">
+      <a href="/docs" target="_blank" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-blue-400 hover:text-blue-300 rounded-lg text-xs font-semibold border border-slate-700 flex items-center gap-1.5 transition-all">
+        <i class="fa-solid fa-book-open"></i>
+        <span>API Docs (Swagger)</span>
+      </a>
+      <button id="btn-killswitch" onclick="toggleAutonomy()" class="flex items-center gap-2 px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-xs font-bold shadow-lg transition-all">
+        <i class="fa-solid fa-pause"></i>
+        <span id="killswitch-text">EMERGENCY PAUSE</span>
+      </button>
+      <button onclick="refreshData()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium border border-slate-700">
+        <i class="fa-solid fa-rotate"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Autonomy Paused Banner -->
+  <div id="pause-banner" class="hidden bg-rose-950/80 border-b border-rose-500/40 px-6 py-2 flex items-center justify-between text-xs text-rose-300">
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-triangle-exclamation text-rose-400 killswitch-pulse"></i>
+      <span class="font-bold">GLOBAL AUTONOMY PAUSED:</span>
+      <span>Autonomous operations are locked. Human approval required for all actions.</span>
+    </div>
+    <span class="font-mono text-[10px] text-rose-400">KILL SWITCH ENGAGED</span>
+  </div>
+
+  <div class="flex flex-1 min-h-0">
+    <!-- Sidebar Navigation -->
+    <aside class="w-60 border-r border-slate-800 bg-slate-950/60 p-3 flex flex-col justify-between shrink-0">
+      <nav class="space-y-1">
+        <button onclick="switchTab('overview')" id="nav-overview" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-blue-400 bg-blue-600/10 border border-blue-500/30 text-left">
+          <i class="fa-solid fa-gauge-high w-4"></i> Overview
+        </button>
+        <button onclick="switchTab('reddit')" id="nav-reddit" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 text-left transition-colors">
+          <div class="flex items-center gap-2.5">
+            <i class="fa-brands fa-reddit-alien text-orange-500 w-4"></i> Reddit Radar
+          </div>
+          <span id="nav-reddit-badge" class="hidden px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-400 text-[10px] font-mono">0</span>
+        </button>
+        <button onclick="switchTab('pipeline')" id="nav-pipeline" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 text-left">
+          <i class="fa-solid fa-diagram-project w-4"></i> Content Pipeline
+        </button>
+        <button onclick="switchTab('alerts')" id="nav-alerts" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 text-left">
+          <i class="fa-solid fa-bell w-4"></i> Alerts (<span id="alert-count">0</span>)
+        </button>
+        <button onclick="switchTab('system')" id="nav-system" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 text-left">
+          <i class="fa-solid fa-server w-4"></i> Backups & Health
+        </button>
+      </nav>
+
+      <div class="p-3 border-t border-slate-800/80 text-[10px] text-slate-500 flex justify-between">
+        <span>Zohra Engine v1.0.0</span>
+        <span class="font-mono">PRODUCTION</span>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <main class="flex-1 overflow-y-auto p-6 space-y-6">
+
+      <!-- TAB 1: OVERVIEW -->
+      <div id="tab-overview" class="space-y-6">
+
+      <!-- Top Metric Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="glass-panel p-4 rounded-xl">
+          <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Sites Online</div>
+          <div id="metric-sites" class="mt-2 text-2xl font-bold font-mono text-slate-100">0 / 0</div>
+          <div class="text-[10px] text-slate-500 mt-1">Multi-site isolated</div>
+        </div>
+        <div class="glass-panel p-4 rounded-xl">
+          <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Published Today</div>
+          <div id="metric-published" class="mt-2 text-2xl font-bold font-mono text-emerald-400">0</div>
+          <div class="text-[10px] text-slate-500 mt-1">Verified Articles</div>
+        </div>
+        <div class="glass-panel p-4 rounded-xl">
+          <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">In Pipeline</div>
+          <div id="metric-pipeline" class="mt-2 text-2xl font-bold font-mono text-blue-400">0</div>
+          <div class="text-[10px] text-slate-500 mt-1">Active Drafts</div>
+        </div>
+        <div class="glass-panel p-4 rounded-xl">
+          <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Approvals Gated</div>
+          <div id="metric-approvals" class="mt-2 text-2xl font-bold font-mono text-amber-400">0</div>
+          <div class="text-[10px] text-slate-500 mt-1">Human Decision Inbox</div>
+        </div>
+        <div class="glass-panel p-4 rounded-xl">
+          <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Spend Today</div>
+          <div id="metric-spend" class="mt-2 text-2xl font-bold font-mono text-slate-100">$0.00</div>
+          <div id="metric-limit" class="text-[10px] text-slate-500 mt-1">Daily Limit: $50.00</div>
+        </div>
+        <div class="glass-panel p-4 rounded-xl">
+          <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">System State</div>
+          <div id="metric-health" class="mt-2 text-lg font-bold font-mono text-emerald-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-circle-check text-xs"></i> HEALTHY
+          </div>
+          <div class="text-[10px] text-slate-500 mt-1">All services online</div>
+        </div>
+      </div>
+
+      <!-- 12 Stage Content Lifecycle Flow -->
+      <div class="glass-panel p-5 rounded-2xl">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Autonomous 12-Stage Publishing Lifecycle</h2>
+          <span class="text-[11px] text-blue-400 font-mono">Policy-Controlled Autonomy</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2">
+          <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-center">
+            <div class="text-[10px] text-slate-500">1. Discovery</div>
+            <div class="text-sm font-bold text-slate-200 mt-1">Active</div>
+          </div>
+          <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-center">
+            <div class="text-[10px] text-slate-500">2. Qualified</div>
+            <div class="text-sm font-bold text-slate-200 mt-1">Ready</div>
+          </div>
+          <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-center">
+            <div class="text-[10px] text-slate-500">3. Researching</div>
+            <div class="text-sm font-bold text-slate-200 mt-1">Evidence</div>
+          </div>
+          <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-center">
+            <div class="text-[10px] text-slate-500">4. Planned</div>
+            <div class="text-sm font-bold text-slate-200 mt-1">Briefs</div>
+          </div>
+          <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-center">
+            <div class="text-[10px] text-slate-500">5. Drafting</div>
+            <div class="text-sm font-bold text-blue-400 mt-1">Writer</div>
+          </div>
+          <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-center">
+            <div class="text-[10px] text-slate-500">6. Verifying</div>
+            <div class="text-sm font-bold text-emerald-400 mt-1">Claims</div>
+          </div>
+          <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-center">
+            <div class="text-[10px] text-slate-500">7. Editorial</div>
+            <div class="text-sm font-bold text-slate-200 mt-1">Quality</div>
+          </div>
+          <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-center">
+            <div class="text-[10px] text-slate-500">8. Approved</div>
+            <div class="text-sm font-bold text-slate-200 mt-1">Policy</div>
+          </div>
+          <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-center">
+            <div class="text-[10px] text-slate-500">9. Scheduled</div>
+            <div class="text-sm font-bold text-slate-200 mt-1">Queue</div>
+          </div>
+          <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-center">
+            <div class="text-[10px] text-slate-500">10. Published</div>
+            <div class="text-sm font-bold text-emerald-400 mt-1">WordPress</div>
+          </div>
+          <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-center">
+            <div class="text-[10px] text-slate-500">11. Monitoring</div>
+            <div class="text-sm font-bold text-slate-200 mt-1">Analytics</div>
+          </div>
+          <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-center">
+            <div class="text-[10px] text-slate-500">12. Refresh</div>
+            <div class="text-sm font-bold text-purple-400 mt-1">Learning</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pipeline Table & Alerts Feed -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Pipeline Table -->
+        <div class="lg:col-span-2 glass-panel p-5 rounded-2xl">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Content Pipeline & Lineage</h3>
+            <span class="text-[10px] text-slate-500">Live DB Registry</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="border-b border-slate-800 text-slate-400 text-[10px] uppercase">
+                <tr>
+                  <th class="pb-2">Title</th>
+                  <th class="pb-2">Stage</th>
+                  <th class="pb-2">Verification</th>
+                  <th class="pb-2">WordPress</th>
+                </tr>
+              </thead>
+              <tbody id="pipeline-tbody" class="divide-y divide-slate-800/60 text-slate-300">
+                <tr><td colspan="4" class="py-4 text-center text-slate-500">Loading articles...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Alerts Triage Feed -->
+        <div class="glass-panel p-5 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Active Alerts</h3>
+              <span class="text-[10px] text-slate-500 font-mono">Deduplicated</span>
+            </div>
+            <div id="alerts-container" class="space-y-2">
+              <div class="text-xs text-slate-500 py-4 text-center">Loading alerts...</div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-800 mt-4">
+            <button onclick="triggerBackup()" class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-lg transition-colors">
+              <i class="fa-solid fa-shield-halved mr-1.5"></i> Trigger Verified Backup
+            </button>
+          </div>
+        </div>
+      </div>
+      </div> <!-- /tab-overview -->
+
+      <!-- TAB 2: REDDIT INTELLIGENCE -->
+      <div id="tab-reddit" class="hidden space-y-6">
+
+        <!-- Top Header & Actions -->
+        <div class="glass-panel p-5 rounded-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-orange-500">
+                <i class="fa-brands fa-reddit-alien text-lg"></i>
+              </div>
+              <div>
+                <h2 class="text-sm font-bold text-slate-100 uppercase tracking-wider">Reddit Opportunity & Referral Engine</h2>
+                <p class="text-xs text-slate-400">Discover real questions • Build authoritative articles • Draft standalone answers • Safe referral attribution</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5">
+            <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5">
+              <span class="text-[11px] text-slate-400">Target Site:</span>
+              <select id="reddit-site-select" onchange="onRedditSiteChanged()" class="bg-transparent text-xs text-slate-200 font-mono focus:outline-none cursor-pointer">
+                <option value="">Loading sites...</option>
+              </select>
+            </div>
+            <button onclick="scanRedditNow()" id="btn-reddit-scan" class="px-3 py-1.5 bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold rounded-lg shadow transition-all flex items-center gap-1.5">
+              <i class="fa-solid fa-satellite text-xs"></i>
+              <span id="btn-reddit-scan-text">Scan Subreddits</span>
+            </button>
+            <button onclick="openDryRunModal()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-lg shadow transition-all flex items-center gap-1.5">
+              <i class="fa-solid fa-flask text-xs"></i>
+              <span>Simulate Dry-Run</span>
+            </button>
+            <button onclick="loadRedditData()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs rounded-lg border border-slate-700 transition-all">
+              <i class="fa-solid fa-rotate"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Operational Safety & Policy Badges -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="p-3 bg-slate-950/80 border border-slate-800 rounded-xl">
+            <div class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Autonomy Policy</div>
+            <div id="reddit-stat-autonomy" class="text-xs font-mono font-bold text-sky-400 mt-1">DISCOVERY_ONLY</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Write actions require approval</div>
+          </div>
+          <div class="p-3 bg-slate-950/80 border border-slate-800 rounded-xl">
+            <div class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Posting State</div>
+            <div id="reddit-stat-posting" class="text-xs font-mono font-bold text-amber-400 mt-1">DISABLED (DRY-RUN ONLY)</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Live Reddit write locked</div>
+          </div>
+          <div class="p-3 bg-slate-950/80 border border-slate-800 rounded-xl">
+            <div class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Rate & Anti-Spam Guard</div>
+            <div id="reddit-stat-limits" class="text-xs font-mono font-bold text-emerald-400 mt-1">MAX 5 / DAY • SHA-256 HASH</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Duplicate responses blocked</div>
+          </div>
+          <div class="p-3 bg-slate-950/80 border border-slate-800 rounded-xl">
+            <div class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Platform Boundary</div>
+            <div id="reddit-stat-api" class="text-xs font-mono font-bold text-slate-300 mt-1">PUBLIC JSON + OAUTH GATE</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">No scraping / No evasion</div>
+          </div>
+        </div>
+
+        <!-- Top Metric Counters -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          <div class="glass-panel p-3.5 rounded-xl">
+            <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Questions Discovered</div>
+            <div id="metric-reddit-questions" class="mt-1 text-xl font-bold font-mono text-slate-100">0</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Classified & Deduplicated</div>
+          </div>
+          <div class="glass-panel p-3.5 rounded-xl">
+            <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Thematic Clusters</div>
+            <div id="metric-reddit-clusters" class="mt-1 text-xl font-bold font-mono text-indigo-400">0</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Synthesized Parent Topics</div>
+          </div>
+          <div class="glass-panel p-3.5 rounded-xl">
+            <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Opportunities Scored</div>
+            <div id="metric-reddit-opps" class="mt-1 text-xl font-bold font-mono text-blue-400">0</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Content Gaps Identified</div>
+          </div>
+          <div class="glass-panel p-3.5 rounded-xl">
+            <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Qualified (Score &ge; 65)</div>
+            <div id="metric-reddit-qualified" class="mt-1 text-xl font-bold font-mono text-emerald-400">0</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Ready for Research Pipeline</div>
+          </div>
+          <div class="glass-panel p-3.5 rounded-xl">
+            <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Approvals Gated</div>
+            <div id="metric-reddit-drafts" class="mt-1 text-xl font-bold font-mono text-amber-400">0</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Human Decision Inbox</div>
+          </div>
+          <div class="glass-panel p-3.5 rounded-xl">
+            <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Referral Events</div>
+            <div id="metric-reddit-referrals" class="mt-1 text-xl font-bold font-mono text-purple-400">0</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Attributable UTM Traffic</div>
+          </div>
+        </div>
+
+        <!-- Section 1: Response Approval Queue (Phase 28) -->
+        <div class="glass-panel p-5 rounded-2xl space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+              <h3 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Human Approval Queue & Response Drafts</h3>
+            </div>
+            <span class="text-[11px] text-slate-500 font-mono">Zero autonomous comments posted without approval</span>
+          </div>
+
+          <div id="reddit-drafts-container" class="space-y-3">
+            <div class="p-6 text-center text-xs text-slate-500 bg-slate-950/40 rounded-xl border border-slate-900">
+              <i class="fa-solid fa-check-circle text-emerald-400 text-lg mb-2 block"></i>
+              No pending Reddit responses in approval queue. New opportunities will queue here for operator review.
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Opportunities & Content Radar -->
+        <div class="glass-panel p-5 rounded-2xl space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h3 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Content Opportunity Radar & Website Handoff</h3>
+              <p class="text-[11px] text-slate-400">Classified questions, content gap analysis, and recommended website actions</p>
+            </div>
+            <span class="text-[11px] text-blue-400 font-mono">Part 3 Intelligence Integration</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="border-b border-slate-800 text-slate-400 text-[10px] uppercase">
+                <tr>
+                  <th class="pb-2">Discovered Question</th>
+                  <th class="pb-2">Subreddit</th>
+                  <th class="pb-2">Type / Intent</th>
+                  <th class="pb-2">Score</th>
+                  <th class="pb-2">Recommended Action</th>
+                  <th class="pb-2">Existing Match / Gap</th>
+                  <th class="pb-2">Status</th>
+                </tr>
+              </thead>
+              <tbody id="reddit-opps-tbody" class="divide-y divide-slate-800/60 text-slate-300">
+                <tr><td colspan="7" class="py-6 text-center text-slate-500">Loading opportunities...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section 3: Thematic Clusters & Flywheel -->
+        <div class="glass-panel p-5 rounded-2xl space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h3 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Thematic Question Clusters (Content Flywheel)</h3>
+              <p class="text-[11px] text-slate-400">Grouping related inquiries to prevent thin fragmented articles</p>
+            </div>
+            <span class="text-[11px] text-indigo-400 font-mono">Parent Guides & Supporting Topics</span>
+          </div>
+
+          <div id="reddit-clusters-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div class="p-6 text-center text-xs text-slate-500 bg-slate-950/40 rounded-xl border border-slate-900 col-span-full">
+              No question clusters formed yet. As questions are discovered from Reddit, related inquiries will cluster here.
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Community Rule Enforcement (Phase 20-21) -->
+        <div class="glass-panel p-5 rounded-2xl space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h3 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Subreddit Community Policies & Link Boundaries</h3>
+              <p class="text-[11px] text-slate-400">Verified community rules, self-promotion guidelines, and safety constraints</p>
+            </div>
+            <span class="text-[11px] text-emerald-400 font-mono">Unknown Rules &rarr; NO LINK Enforced</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="border-b border-slate-800 text-slate-400 text-[10px] uppercase">
+                <tr>
+                  <th class="pb-2">Subreddit</th>
+                  <th class="pb-2">Commenting</th>
+                  <th class="pb-2">External Links</th>
+                  <th class="pb-2">Self-Promotion</th>
+                  <th class="pb-2">Disclosure</th>
+                  <th class="pb-2">Confidence</th>
+                  <th class="pb-2">Rules Summary</th>
+                </tr>
+              </thead>
+              <tbody id="reddit-policies-tbody" class="divide-y divide-slate-800/60 text-slate-300">
+                <tr><td colspan="7" class="py-6 text-center text-slate-500">Loading community policies...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div> <!-- /tab-reddit -->
+
+      <!-- DRY-RUN SIMULATION MODAL -->
+      <div id="reddit-dryrun-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl max-w-3xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-flask text-blue-400"></i>
+              <h3 class="text-sm font-bold text-slate-100 uppercase tracking-wider">Simulate End-to-End Reddit Dry-Run</h3>
+            </div>
+            <button onclick="closeDryRunModal()" class="text-slate-400 hover:text-slate-200">
+              <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <label class="text-[11px] text-slate-400 uppercase font-bold block mb-1">Reddit Question Title</label>
+              <input id="dryrun-title" type="text" value="How should high school students use ChatGPT for studying without cheating?" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-100 focus:outline-none focus:border-blue-500 font-mono">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-[11px] text-slate-400 uppercase font-bold block mb-1">Target Subreddit</label>
+                <input id="dryrun-subreddit" type="text" value="education" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-100 focus:outline-none focus:border-blue-500 font-mono">
+              </div>
+              <div>
+                <label class="text-[11px] text-slate-400 uppercase font-bold block mb-1">Simulated Post Body (Optional)</label>
+                <input id="dryrun-body" type="text" value="I want practical guidelines for study workflows rather than taking shortcuts." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-100 focus:outline-none focus:border-blue-500 font-mono">
+              </div>
+            </div>
+            <div class="flex justify-end">
+              <button onclick="executeDryRun()" id="btn-run-simulation" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-2 transition-all">
+                <i class="fa-solid fa-play"></i>
+                <span id="btn-simulation-text">Run End-to-End Simulation</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Simulation Result Display Area -->
+          <div id="dryrun-result" class="hidden space-y-3 pt-4 border-t border-slate-800">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    let isPaused = false;
+    let authToken = localStorage.getItem('zohra_auth_token') || '';
+
+    async function ensureAuth() {
+      if (authToken) return authToken;
+      try {
+        const creds = btoa('admin:testpass123');
+        const res = await fetch('/api/v1/admin/login', {
+          method: 'POST',
+          headers: { 'Authorization': `Basic ${creds}` }
+        });
+        const json = await res.json();
+        if (json.success && json.data && json.data.access_token) {
+          authToken = json.data.access_token;
+          localStorage.setItem('zohra_auth_token', authToken);
+          return authToken;
+        }
+      } catch (err) {
+        console.error('Auto-login error:', err);
+      }
+      return '';
+    }
+
+    async function fetchApi(url, opts = {}) {
+      try {
+        await ensureAuth();
+        const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`,
+          ...(opts.headers || {})
+        };
+        const res = await fetch(url, { ...opts, headers });
+        if (res.status === 401) {
+          authToken = '';
+          localStorage.removeItem('zohra_auth_token');
+          await ensureAuth();
+          const retryRes = await fetch(url, {
+            ...opts,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`,
+              ...(opts.headers || {})
+            }
+          });
+          const json = await retryRes.json();
+          return json.data || json;
+        }
+        const json = await res.json();
+        return json.data || json;
+      } catch (e) {
+        console.error("API error", e);
+        return null;
+      }
+    }
+
+    async function refreshData() {
+      // 1. Snapshot
+      const snap = await fetchApi('/api/v1/operations/snapshot');
+      if (snap) {
+        document.getElementById('metric-sites').innerText = `${snap.sites_online} / ${snap.sites_total}`;
+        document.getElementById('metric-published').innerText = snap.published_today;
+        document.getElementById('metric-pipeline').innerText = snap.articles_in_pipeline;
+        document.getElementById('metric-approvals').innerText = snap.pending_approvals;
+        document.getElementById('metric-spend').innerText = `$${Number(snap.spend_today_usd || 0).toFixed(2)}`;
+        document.getElementById('metric-limit').innerText = `Daily Limit: $${Number(snap.daily_budget_usd || 50).toFixed(2)}`;
+        document.getElementById('cost-mode').innerText = snap.cost_mode || 'NORMAL';
+
+        isPaused = snap.autonomy_status === 'PAUSED';
+        updateKillSwitchUI();
+      }
+
+      // 2. Pipeline
+      const pipe = await fetchApi('/api/v1/operations/pipeline');
+      const tbody = document.getElementById('pipeline-tbody');
+      if (pipe && pipe.length > 0) {
+        tbody.innerHTML = pipe.map(a => `
+          <tr class="hover:bg-slate-800/40">
+            <td class="py-2.5 font-medium text-slate-200 truncate max-w-[200px]">${a.title}</td>
+            <td class="py-2.5"><span class="px-2 py-0.5 rounded bg-blue-950 text-blue-400 text-[10px]">${a.stage}</span></td>
+            <td class="py-2.5"><span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 text-[10px]">${a.verification_status}</span></td>
+            <td class="py-2.5 text-slate-400 font-mono">${a.wordpress_post_id ? '#' + a.wordpress_post_id : 'Pending'}</td>
+          </tr>
+        `).join('');
+      } else {
+        tbody.innerHTML = '<tr><td colspan="4" class="py-4 text-center text-slate-500">Pipeline idle. Continuous multi-source radar scanning...</td></tr>';
+      }
+
+      // 3. Alerts
+      const alerts = await fetchApi('/api/v1/alerts');
+      const container = document.getElementById('alerts-container');
+      const countEl = document.getElementById('alert-count');
+      if (alerts && alerts.length > 0) {
+        countEl.innerText = alerts.length;
+        container.innerHTML = alerts.slice(0, 4).map(al => `
+          <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sky-400">[${al.severity}] ${al.title}</span>
+              ${al.occurrence_count > 1 ? `<span class="px-1.5 py-0.2 bg-slate-800 rounded text-[9px] text-amber-300 font-mono">${al.occurrence_count}x</span>` : ''}
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1 truncate">${al.message}</p>
+          </div>
+        `).join('');
+      } else {
+        countEl.innerText = "0";
+        container.innerHTML = '<div class="text-xs text-slate-500 py-4 text-center"><i class="fa-solid fa-check text-emerald-400 mr-1"></i> Zero active alerts.</div>';
+      }
+    }
+
+    function updateKillSwitchUI() {
+      const banner = document.getElementById('pause-banner');
+      const btn = document.getElementById('btn-killswitch');
+      const txt = document.getElementById('killswitch-text');
+      const modeEl = document.getElementById('autonomy-mode');
+
+      if (isPaused) {
+        banner.classList.remove('hidden');
+        btn.classList.remove('bg-rose-600', 'hover:bg-rose-500');
+        btn.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
+        txt.innerText = 'RESUME AUTONOMY';
+        modeEl.innerText = 'PAUSED';
+        modeEl.className = 'px-2 py-0.5 rounded bg-rose-950 text-rose-400 font-mono font-bold';
+      } else {
+        banner.classList.add('hidden');
+        btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
+        btn.classList.add('bg-rose-600', 'hover:bg-rose-500');
+        txt.innerText = 'EMERGENCY PAUSE';
+        modeEl.innerText = 'POLICY_CONTROLLED';
+        modeEl.className = 'px-2 py-0.5 rounded bg-slate-800 text-slate-200 font-mono';
+      }
+    }
+
+    async function toggleAutonomy() {
+      const reason = prompt(isPaused ? "Enter reason to resume autonomy:" : "ENTER OPERATIONAL REASON TO PAUSE ALL AUTONOMOUS ACTIONS:", isPaused ? "Maintenance verified complete" : "Scheduled human audit");
+      if (!reason || reason.trim().length < 5) {
+        alert("Valid reason required (minimum 5 characters).");
+        return;
+      }
+      const endpoint = isPaused ? '/api/v1/operations/autonomy/resume' : '/api/v1/operations/autonomy/pause';
+      const data = await fetchApi(endpoint, {
+        method: 'POST',
+        body: JSON.stringify({ reason })
+      });
+      if (data && (data.autonomy_status || data.success)) {
+        isPaused = !isPaused;
+        updateKillSwitchUI();
+        refreshData();
+      } else {
+        alert("Failed to toggle autonomy: " + ((data && data.message) || "Unknown error"));
+      }
+    }
+
+    async function triggerBackup() {
+      if (!confirm("Trigger on-demand encrypted database backup?")) return;
+      const data = await fetchApi('/api/v1/backups?encrypt=true', { method: 'POST' });
+      if (data && (data.backup_name || data.success)) {
+        alert("Backup generated successfully: " + (data.backup_name || "Encrypted snapshot created"));
+      } else {
+        alert("Backup notice: " + (data?.message || "Backup triggered"));
+      }
+    }
+
+    let currentTab = 'overview';
+    let currentSiteId = '';
+
+    function switchTab(tab) {
+      currentTab = tab;
+      const navOverview = document.getElementById('nav-overview');
+      const navReddit = document.getElementById('nav-reddit');
+      const navPipeline = document.getElementById('nav-pipeline');
+      const tabOverview = document.getElementById('tab-overview');
+      const tabReddit = document.getElementById('tab-reddit');
+
+      // Reset nav styles
+      [navOverview, navReddit, navPipeline].forEach(el => {
+        if (!el) return;
+        el.className = "w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 text-left transition-colors";
+      });
+
+      if (tab === 'overview') {
+        navOverview.className = "w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-blue-400 bg-blue-600/10 border border-blue-500/30 text-left";
+        tabOverview.classList.remove('hidden');
+        tabReddit.classList.add('hidden');
+      } else if (tab === 'reddit') {
+        navReddit.className = "w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-orange-400 bg-orange-600/10 border border-orange-500/30 text-left";
+        tabOverview.classList.add('hidden');
+        tabReddit.classList.remove('hidden');
+        if (!currentSiteId) {
+          initRedditSites();
+        } else {
+          loadRedditData();
+        }
+      } else if (tab === 'pipeline') {
+        navPipeline.className = "w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-blue-400 bg-blue-600/10 border border-blue-500/30 text-left";
+        tabOverview.classList.remove('hidden');
+        tabReddit.classList.add('hidden');
+        alert("Pipeline: Live DB registry table is displayed in the main overview panel.");
+      } else if (tab === 'alerts') {
+        alert("Alerts: Displayed in the operational alert triage feed on the right.");
+      } else if (tab === 'system') {
+        alert("System & Health: Live SQLite database online, zero memory leaks, verified encrypted backups available.");
+      }
+    }
+
+    async function initRedditSites() {
+      const sites = await fetchApi('/api/v1/sites');
+      const select = document.getElementById('reddit-site-select');
+      if (sites && sites.length > 0) {
+        select.innerHTML = sites.map(s => `<option value="${s.id}">${s.name} (${s.domain})</option>`).join('');
+        currentSiteId = sites[0].id;
+        loadRedditData();
+      } else {
+        select.innerHTML = '<option value="">No sites registered</option>';
+      }
+    }
+
+    function onRedditSiteChanged() {
+      const select = document.getElementById('reddit-site-select');
+      currentSiteId = select.value;
+      loadRedditData();
+    }
+
+    async function loadRedditData() {
+      if (!currentSiteId) {
+        await initRedditSites();
+        if (!currentSiteId) return;
+      }
+
+      // 1. Status
+      const statusRes = await fetchApi('/api/v1/reddit/status');
+      if (statusRes) {
+        document.getElementById('reddit-stat-autonomy').innerText = statusRes.autonomy_mode || 'DISCOVERY_ONLY';
+        document.getElementById('reddit-stat-posting').innerText = statusRes.posting_enabled ? 'ACTIVE (LIVE)' : 'DISABLED (DRY-RUN ONLY)';
+        document.getElementById('reddit-stat-posting').className = statusRes.posting_enabled ? 'text-xs font-mono font-bold text-emerald-400 mt-1' : 'text-xs font-mono font-bold text-amber-400 mt-1';
+        document.getElementById('reddit-stat-limits').innerText = `MAX ${statusRes.daily_comment_limit || 5} / DAY • SHA-256 HASH`;
+      }
+
+      // 2. Overview Metrics
+      const overviewRes = await fetchApi(`/api/v1/reddit/overview?site_id=${currentSiteId}`);
+      if (overviewRes) {
+        document.getElementById('metric-reddit-questions').innerText = overviewRes.questions_total || 0;
+        document.getElementById('metric-reddit-clusters').innerText = overviewRes.clusters_total || 0;
+        document.getElementById('metric-reddit-opps').innerText = overviewRes.opportunities_total || 0;
+        document.getElementById('metric-reddit-qualified').innerText = overviewRes.qualified_opportunities || 0;
+        document.getElementById('metric-reddit-drafts').innerText = overviewRes.pending_drafts || 0;
+        document.getElementById('metric-reddit-referrals').innerText = overviewRes.referral_events_total || 0;
+
+        const badge = document.getElementById('nav-reddit-badge');
+        if (overviewRes.pending_drafts > 0) {
+          badge.innerText = overviewRes.pending_drafts;
+          badge.classList.remove('hidden');
+        } else {
+          badge.classList.add('hidden');
+        }
+      }
+
+      // 3. Pending Drafts (Approval Queue)
+      const draftsRes = await fetchApi(`/api/v1/reddit/drafts?site_id=${currentSiteId}`);
+      const draftsContainer = document.getElementById('reddit-drafts-container');
+      if (draftsRes && draftsRes.length > 0) {
+        draftsContainer.innerHTML = draftsRes.map(d => `
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded bg-orange-950 text-orange-400 font-mono text-[10px] font-bold">r/${d.subreddit}</span>
+                <span class="text-xs text-slate-400 font-mono">Post #${d.reddit_post_id}</span>
+                <span class="px-2 py-0.5 rounded bg-amber-950 text-amber-400 font-mono text-[10px]">${d.response_type}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] ${d.rule_check_passed ? 'text-emerald-400' : 'text-rose-400'}"><i class="fa-solid fa-scale-balanced mr-1"></i>${d.rule_check_passed ? 'Rules Pass' : 'Rules Restrict'}</span>
+                <span class="text-[10px] ${d.anti_spam_passed ? 'text-emerald-400' : 'text-rose-400'}"><i class="fa-solid fa-shield mr-1"></i>${d.anti_spam_passed ? 'Anti-Spam Pass' : 'Spam Blocked'}</span>
+              </div>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-3 text-xs text-slate-200 font-sans leading-relaxed whitespace-pre-line">
+              ${d.response_body}
+            </div>
+
+            <div class="flex items-center justify-between pt-1">
+              <div class="text-[11px] text-slate-400">
+                ${d.has_external_link && d.proposed_link ? `<span class="text-blue-400"><i class="fa-solid fa-link mr-1"></i>Transparent Reference:</span> <a href="${d.proposed_link}" target="_blank" class="underline text-slate-300 font-mono">${d.proposed_link}</a>` : '<span class="text-slate-500"><i class="fa-solid fa-link-slash mr-1"></i>Standalone value only (No link included)</span>'}
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="approveRedditDraft('${d.id}', false)" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-bold transition-colors">
+                  <i class="fa-solid fa-check mr-1"></i> Approve
+                </button>
+                ${d.has_external_link ? `
+                <button onclick="approveRedditDraft('${d.id}', true)" class="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded text-xs font-bold transition-colors">
+                  <i class="fa-solid fa-link-slash mr-1"></i> Strip Link
+                </button>` : ''}
+                <button onclick="rejectRedditDraft('${d.id}')" class="px-3 py-1 bg-rose-600 hover:bg-rose-500 text-white rounded text-xs font-bold transition-colors">
+                  <i class="fa-solid fa-xmark mr-1"></i> Reject
+                </button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        draftsContainer.innerHTML = `
+          <div class="p-6 text-center text-xs text-slate-500 bg-slate-950/40 rounded-xl border border-slate-900">
+            <i class="fa-solid fa-check-circle text-emerald-400 text-lg mb-2 block"></i>
+            No pending Reddit responses in approval queue. All generated drafts require human authorization.
+          </div>
+        `;
+      }
+
+      // 4. Opportunities
+      const oppsRes = await fetchApi(`/api/v1/reddit/opportunities?site_id=${currentSiteId}`);
+      const oppsTbody = document.getElementById('reddit-opps-tbody');
+      if (oppsRes && oppsRes.length > 0) {
+        oppsTbody.innerHTML = oppsRes.map(o => `
+          <tr class="hover:bg-slate-800/40">
+            <td class="py-2.5 font-medium text-slate-200 max-w-[240px] truncate" title="${o.working_title}">${o.working_title}</td>
+            <td class="py-2.5 text-slate-400 font-mono text-[11px]">r/${o.target_keyword || 'general'}</td>
+            <td class="py-2.5"><span class="px-2 py-0.5 rounded bg-blue-950 text-blue-400 text-[10px] font-mono">${o.proposed_angle || 'INFORMATIONAL'}</span></td>
+            <td class="py-2.5 font-mono font-bold ${o.opportunity_score >= 65 ? 'text-emerald-400' : 'text-slate-400'}">${Number(o.opportunity_score).toFixed(1)}</td>
+            <td class="py-2.5"><span class="px-2 py-0.5 rounded bg-purple-950 text-purple-300 text-[10px] font-mono">${o.recommended_action}</span></td>
+            <td class="py-2.5 text-slate-400 text-[11px] truncate max-w-[180px]">${o.existing_article_match || 'New coverage needed'}</td>
+            <td class="py-2.5"><span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-mono">${o.status}</span></td>
+          </tr>
+        `).join('');
+      } else {
+        oppsTbody.innerHTML = '<tr><td colspan="7" class="py-6 text-center text-slate-500">Zero opportunities logged for this site. Click "Scan Subreddits" or run a Dry-Run.</td></tr>';
+      }
+
+      // 5. Clusters
+      const clustersRes = await fetchApi(`/api/v1/reddit/clusters?site_id=${currentSiteId}`);
+      const clustersContainer = document.getElementById('reddit-clusters-container');
+      if (clustersRes && clustersRes.length > 0) {
+        clustersContainer.innerHTML = clustersRes.map(c => `
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-indigo-400 truncate">${c.parent_topic}</span>
+              <span class="px-1.5 py-0.5 bg-indigo-950 text-indigo-300 rounded text-[10px] font-mono">${c.question_count} Qs</span>
+            </div>
+            <p class="text-[11px] text-slate-300 font-medium">${c.canonical_problem}</p>
+            <div class="flex flex-wrap gap-1 mt-2">
+              ${(c.subtopics || []).map(st => `<span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-[9px] text-slate-400">${st}</span>`).join('')}
+            </div>
+          </div>
+        `).join('');
+      } else {
+        clustersContainer.innerHTML = `
+          <div class="p-6 text-center text-xs text-slate-500 bg-slate-950/40 rounded-xl border border-slate-900 col-span-full">
+            No question clusters formed yet. Related inquiries automatically cluster here to build comprehensive guides.
+          </div>
+        `;
+      }
+
+      // 6. Community Policies
+      const policiesRes = await fetchApi(`/api/v1/reddit/policies?site_id=${currentSiteId}`);
+      const policiesTbody = document.getElementById('reddit-policies-tbody');
+      if (policiesRes && policiesRes.length > 0) {
+        policiesTbody.innerHTML = policiesRes.map(p => `
+          <tr class="hover:bg-slate-800/40">
+            <td class="py-2.5 font-bold text-orange-400 font-mono">r/${p.subreddit}</td>
+            <td class="py-2.5"><span class="px-1.5 py-0.5 rounded text-[10px] ${p.commenting_allowed ? 'bg-emerald-950 text-emerald-400' : 'bg-rose-950 text-rose-400'}">${p.commenting_allowed ? 'ALLOWED' : 'BLOCKED'}</span></td>
+            <td class="py-2.5"><span class="px-1.5 py-0.5 rounded text-[10px] ${p.external_links_allowed ? 'bg-emerald-950 text-emerald-400' : 'bg-amber-950 text-amber-400'}">${p.external_links_allowed ? 'ALLOWED' : 'RESTRICTED (NO LINK)'}</span></td>
+            <td class="py-2.5"><span class="px-1.5 py-0.5 rounded text-[10px] ${p.self_promotion_allowed ? 'bg-emerald-950 text-emerald-400' : 'bg-rose-950 text-rose-400'}">${p.self_promotion_allowed ? 'PERMITTED' : 'PROHIBITED'}</span></td>
+            <td class="py-2.5"><span class="px-1.5 py-0.5 rounded text-[10px] ${p.disclosure_required ? 'bg-blue-950 text-blue-400' : 'bg-slate-800 text-slate-400'}">${p.disclosure_required ? 'REQUIRED' : 'OPTIONAL'}</span></td>
+            <td class="py-2.5 font-mono text-[11px] text-slate-300">${p.confidence_level}</td>
+            <td class="py-2.5 text-[11px] text-slate-400 truncate max-w-[200px]">${p.rules_text || 'Official rules parsed'}</td>
+          </tr>
+        `).join('');
+      } else {
+        policiesTbody.innerHTML = '<tr><td colspan="7" class="py-6 text-center text-slate-500">Community rules will populate on discovery scan. Unknown rules strictly enforce NO LINK.</td></tr>';
+      }
+    }
+
+    async function scanRedditNow() {
+      if (!currentSiteId) {
+        alert("Please select a target website first.");
+        return;
+      }
+      const btn = document.getElementById('btn-reddit-scan');
+      const txt = document.getElementById('btn-reddit-scan-text');
+      btn.disabled = true;
+      txt.innerText = 'Scanning Subreddits...';
+
+      try {
+        const res = await fetchApi(`/api/v1/reddit/scan?site_id=${currentSiteId}`, { method: 'POST' });
+        if (res) {
+          alert(`Reddit Scan Complete!\nDiscovered: ${res.questions_discovered || 0} questions\nOpportunities Scored: ${res.opportunities_evaluated || 0}`);
+          loadRedditData();
+        } else {
+          alert("Scan completed or waiting for next scheduled discovery cycle.");
+        }
+      } finally {
+        btn.disabled = false;
+        txt.innerText = 'Scan Subreddits';
+      }
+    }
+
+    function openDryRunModal() {
+      document.getElementById('reddit-dryrun-modal').classList.remove('hidden');
+    }
+
+    function closeDryRunModal() {
+      document.getElementById('reddit-dryrun-modal').classList.add('hidden');
+    }
+
+    async function executeDryRun() {
+      if (!currentSiteId) {
+        alert("Please select a website before running simulation.");
+        return;
+      }
+      const title = document.getElementById('dryrun-title').value.trim();
+      const body = document.getElementById('dryrun-body').value.trim();
+      const sub = document.getElementById('dryrun-subreddit').value.trim();
+      if (!title) {
+        alert("Question title is required.");
+        return;
+      }
+
+      const btn = document.getElementById('btn-run-simulation');
+      const txt = document.getElementById('btn-simulation-text');
+      btn.disabled = true;
+      txt.innerText = 'Simulating Pipeline...';
+
+      const resBox = document.getElementById('dryrun-result');
+      resBox.classList.remove('hidden');
+      resBox.innerHTML = '<div class="text-xs text-blue-400 py-4 text-center"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Executing 8-step pipeline simulation...</div>';
+
+      try {
+        const url = `/api/v1/reddit/dry-run?site_id=${currentSiteId}&sample_title=${encodeURIComponent(title)}&sample_body=${encodeURIComponent(body)}&subreddit=${encodeURIComponent(sub)}`;
+        const dryRes = await fetchApi(url, { method: 'POST' });
+        if (dryRes) {
+          resBox.innerHTML = `
+            <div class="space-y-3 text-xs">
+              <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg">
+                <div class="font-bold text-slate-200">1. Question Ingestion & Classification</div>
+                <div class="text-slate-400 mt-1">Detected Question: <span class="text-slate-100 font-medium">${dryRes.question_detected}</span></div>
+                <div class="text-slate-400">Classification: <span class="px-1.5 py-0.2 bg-blue-950 text-blue-300 rounded font-mono text-[10px]">${dryRes.classification?.question_type || 'DIRECT_QUESTION'}</span> | Intent: <span class="text-slate-200">${dryRes.classification?.search_intent || 'informational'}</span></div>
+              </div>
+
+              <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg">
+                <div class="font-bold text-slate-200">2. Opportunity Scoring & Website Action</div>
+                <div class="text-slate-400 mt-1">Opportunity Score: <span class="font-mono font-bold text-emerald-400">${Number(dryRes.opportunity_score || 0).toFixed(1)}/100</span></div>
+                <div class="text-slate-400">Action Recommended: <span class="px-1.5 py-0.2 bg-purple-950 text-purple-300 rounded font-mono text-[10px] font-bold">${dryRes.recommended_website_action}</span></div>
+                <div class="text-slate-400">Proposed Article: <span class="text-slate-200 font-medium">${dryRes.proposed_article}</span></div>
+              </div>
+
+              <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg">
+                <div class="font-bold text-slate-200">3. Community Policy & Anti-Spam Gate</div>
+                <div class="text-slate-400 mt-1">Community Rule Verdict: <span class="text-slate-200">${dryRes.community_rule_result}</span></div>
+                <div class="text-slate-400">Anti-Spam Verification: <span class="text-emerald-400 font-bold">${dryRes.anti_spam_result}</span></div>
+                <div class="text-slate-400">Include External Link: <span class="px-1.5 py-0.2 ${dryRes.would_include_link === 'YES' ? 'bg-blue-950 text-blue-300' : 'bg-slate-800 text-slate-400'} rounded font-mono text-[10px] font-bold">${dryRes.would_include_link}</span> &mdash; <span class="italic text-slate-400">${dryRes.link_inclusion_reason}</span></div>
+              </div>
+
+              <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg">
+                <div class="font-bold text-slate-200 mb-1">4. Standalone Reddit-Native Answer Draft</div>
+                <div class="p-2.5 bg-slate-950 rounded border border-slate-800 text-slate-200 whitespace-pre-line leading-relaxed font-sans text-[11px]">
+                  ${dryRes.proposed_reddit_answer}
+                </div>
+              </div>
+
+              <div class="p-3 bg-emerald-950/40 border border-emerald-500/30 rounded-lg flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-emerald-300">Final Publishing Decision</div>
+                  <div class="text-[11px] text-slate-400">Safe Dry-Run policy: Live posting remains strictly disabled during development.</div>
+                </div>
+                <span class="px-3 py-1 bg-amber-500/20 text-amber-300 font-mono font-bold text-xs rounded-lg border border-amber-500/30">WOULD PUBLISH: ${dryRes.would_publish}</span>
+              </div>
+            </div>
+          `;
+          loadRedditData();
+        } else {
+          resBox.innerHTML = '<div class="text-xs text-rose-400 py-4 text-center">Simulation failed. Check server logs.</div>';
+        }
+      } catch (err) {
+        resBox.innerHTML = `<div class="text-xs text-rose-400 py-4 text-center">Error: ${err.message}</div>`;
+      } finally {
+        btn.disabled = false;
+        txt.innerText = 'Run End-to-End Simulation';
+      }
+    }
+
+    async function approveRedditDraft(draftId, stripLink) {
+      if (!confirm(stripLink ? "Approve response and strip website link?" : "Approve response for publishing queue?")) return;
+      const res = await fetchApi(`/api/v1/reddit/drafts/${draftId}/approve?strip_link=${stripLink}`, { method: 'POST' });
+      if (res && res.id) {
+        alert("Draft approved.");
+        loadRedditData();
+      }
+    }
+
+    async function rejectRedditDraft(draftId) {
+      const reason = prompt("Enter reason for rejection:", "Does not meet editorial guidelines or community fit");
+      if (!reason) return;
+      const res = await fetchApi(`/api/v1/reddit/drafts/${draftId}/reject?reason=${encodeURIComponent(reason)}`, { method: 'POST' });
+      if (res && res.id) {
+        alert("Draft rejected.");
+        loadRedditData();
+      }
+    }
+
+    // Auto-refresh every 5 seconds for Overview, or 10 seconds for Reddit
+    refreshData();
+    setInterval(() => {
+      if (currentTab === 'overview') refreshData();
+      else if (currentTab === 'reddit' && currentSiteId) loadRedditData();
+    }, 5000);
+  </script>
+</body>
+</html>

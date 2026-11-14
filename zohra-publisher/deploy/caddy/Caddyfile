@@ -1,0 +1,49 @@
+{
+    # Global options
+    admin off
+    auto_https off # Or 'disable_redirects' if upstream terminates SSL
+}
+
+:80 {
+    # Security Headers (Prompt #100)
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;"
+    }
+
+    # API and WebSocket proxy
+    handle /api/* {
+        reverse_proxy api:8000 {
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
+    # Health and metrics endpoints
+    handle /health* {
+        reverse_proxy api:8000
+    }
+
+    handle /metrics {
+        reverse_proxy api:8000
+    }
+
+    # Frontend Command Center Application
+    handle {
+        reverse_proxy frontend:3000
+    }
+
+    # Compression
+    encode gzip zstd
+
+    # Logging
+    log {
+        output stdout
+        format json
+    }
+}

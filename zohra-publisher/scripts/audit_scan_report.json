@@ -1,0 +1,4786 @@
+{
+  "keywords": [
+    {
+      "file": "app\\api\\v1\\backups.py",
+      "line": 82,
+      "keyword": "temporary",
+      "content": "\"\"\"Test restoring the backup artifact into an isolated temporary database sandbox.\"\"\""
+    },
+    {
+      "file": "app\\audit\\pipeline.py",
+      "line": 14,
+      "keyword": "fake",
+      "content": "10. Hallucination Detection (Fake Experience, Fake Authority)."
+    },
+    {
+      "file": "app\\audit\\hallucination\\detector.py",
+      "line": 5,
+      "keyword": "fake",
+      "content": "- Fake Experience: Claims like \"we tested\", \"our testing\", \"in our hands-on review\" without testing logs."
+    },
+    {
+      "file": "app\\audit\\hallucination\\detector.py",
+      "line": 6,
+      "keyword": "fake",
+      "content": "- Fake Authority: Phrases like \"experts agree\", \"scientists prove\", \"industry consensus\" without evidence."
+    },
+    {
+      "file": "app\\audit\\hallucination\\detector.py",
+      "line": 21,
+      "keyword": "fake",
+      "content": "\"\"\"Detects invented personal experience, fake authority, and unsupported superlatives.\"\"\""
+    },
+    {
+      "file": "app\\audit\\hallucination\\detector.py",
+      "line": 67,
+      "keyword": "fake",
+      "content": "# 1. Fake Experience Audit"
+    },
+    {
+      "file": "app\\audit\\hallucination\\detector.py",
+      "line": 85,
+      "keyword": "fake",
+      "content": "# 2. Fake Authority Audit"
+    },
+    {
+      "file": "app\\audit\\seo\\auditor.py",
+      "line": 9,
+      "keyword": "fake",
+      "content": "- Metadata Truthfulness: Verifies meta description does not claim non-existent features or fake urgency."
+    },
+    {
+      "file": "app\\editorial\\writer\\review_guard.py",
+      "line": 5,
+      "keyword": "fake",
+      "content": "Prohibits the generation of fake hands-on testing claims (\"We tested this for 3 weeks\","
+    },
+    {
+      "file": "app\\editorial\\writer\\review_guard.py",
+      "line": 27,
+      "keyword": "fake",
+      "content": "\"\"\"Scans and replaces fake first-hand experience claims with evidence-based framing."
+    },
+    {
+      "file": "app\\editorial\\writer\\review_guard.py",
+      "line": 42,
+      "keyword": "fake",
+      "content": "\"\"\"Returns True if text contains prohibited fake first-hand claims.\"\"\""
+    },
+    {
+      "file": "app\\editorial\\writer\\section_writer.py",
+      "line": 117,
+      "keyword": "fake",
+      "content": "# 3. Sanitize against unauthorized fake first-hand testing claims"
+    },
+    {
+      "file": "app\\integrations\\wordpress\\client.py",
+      "line": 65,
+      "keyword": "temporary",
+      "content": "\"\"\"Executes HTTP request with backoff retry on temporary network/5xx glitches.\"\"\""
+    },
+    {
+      "file": "app\\opportunity\\keywords\\expander.py",
+      "line": 91,
+      "keyword": "fake",
+      "content": "Never manufactures fake search volume or CPC numbers."
+    },
+    {
+      "file": "app\\publishing\\pipeline.py",
+      "line": 85,
+      "keyword": "placeholder",
+      "content": "# Local placeholder URL until uploaded to WP"
+    },
+    {
+      "file": "app\\services\\backup.py",
+      "line": 189,
+      "keyword": "temporary",
+      "content": "# Create temporary SQLite sandbox to verify restoration"
+    },
+    {
+      "file": "app\\services\\storage.py",
+      "line": 86,
+      "keyword": "temporary",
+      "content": "\"\"\"Remove temporary exports or media older than max_age_hours.\"\"\""
+    }
+  ],
+  "empty_functions": [],
+  "swallowed_exceptions": [
+    {
+      "file": "app\\opportunity\\serp\\provider.py",
+      "line": 139,
+      "type": "silent_pass"
+    },
+    {
+      "file": "app\\opportunity\\serp\\provider.py",
+      "line": 320,
+      "type": "silent_pass"
+    }
+  ],
+  "broad_unlogged_exceptions": [
+    {
+      "file": "app\\services\\backup.py",
+      "line": 98,
+      "type": "unlogged_no_raise"
+    }
+  ],
+  "routes": [
+    {
+      "file": "app\\main.py",
+      "line": 152,
+      "name": "serve_command_center",
+      "method": "GET",
+      "path": "/",
+      "decorators": [
+        "app.get",
+        "app.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\admin.py",
+      "line": 22,
+      "name": "admin_login",
+      "method": "POST",
+      "path": "/login",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\admin.py",
+      "line": 43,
+      "name": "admin_me",
+      "method": "GET",
+      "path": "/me",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\alerts.py",
+      "line": 29,
+      "name": "list_alerts",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\alerts.py",
+      "line": 44,
+      "name": "emit_alert",
+      "method": "POST",
+      "path": "",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\alerts.py",
+      "line": 66,
+      "name": "acknowledge_alert",
+      "method": "POST",
+      "path": "/{alert_id}/acknowledge",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\alerts.py",
+      "line": 80,
+      "name": "resolve_alert",
+      "method": "POST",
+      "path": "/{alert_id}/resolve",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 81,
+      "name": "register_property",
+      "method": "POST",
+      "path": "/properties",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 107,
+      "name": "list_properties",
+      "method": "GET",
+      "path": "/properties",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 122,
+      "name": "get_property",
+      "method": "GET",
+      "path": "/properties/{property_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 137,
+      "name": "trigger_sync",
+      "method": "POST",
+      "path": "/sync",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 159,
+      "name": "list_ingestion_runs",
+      "method": "GET",
+      "path": "/runs",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 182,
+      "name": "list_page_metrics",
+      "method": "GET",
+      "path": "/pages",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 205,
+      "name": "list_query_metrics",
+      "method": "GET",
+      "path": "/queries",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 228,
+      "name": "list_site_metrics",
+      "method": "GET",
+      "path": "/site-metrics",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 251,
+      "name": "get_indexing_history",
+      "method": "GET",
+      "path": "/indexing/{article_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 272,
+      "name": "request_url_inspection",
+      "method": "POST",
+      "path": "/inspect",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 292,
+      "name": "list_anomalies",
+      "method": "GET",
+      "path": "/anomalies",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 315,
+      "name": "list_cannibalization_events",
+      "method": "GET",
+      "path": "/cannibalization",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 338,
+      "name": "list_opportunities",
+      "method": "GET",
+      "path": "/opportunities",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 361,
+      "name": "get_article_performance",
+      "method": "GET",
+      "path": "/performance/{article_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 385,
+      "name": "get_topic_performance",
+      "method": "GET",
+      "path": "/performance/topics",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 410,
+      "name": "get_site_performance",
+      "method": "GET",
+      "path": "/performance/site",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 437,
+      "name": "create_annotation",
+      "method": "POST",
+      "path": "/annotations",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\analytics.py",
+      "line": 460,
+      "name": "get_site_summary",
+      "method": "GET",
+      "path": "/summary/{site_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\audits.py",
+      "line": 45,
+      "name": "create_audit",
+      "method": "POST",
+      "path": "",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\audits.py",
+      "line": 98,
+      "name": "list_audits",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\audits.py",
+      "line": 118,
+      "name": "get_audit",
+      "method": "GET",
+      "path": "/{audit_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\audits.py",
+      "line": 132,
+      "name": "get_audit_status",
+      "method": "GET",
+      "path": "/{audit_id}/status",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\audits.py",
+      "line": 146,
+      "name": "get_audit_claims",
+      "method": "GET",
+      "path": "/{audit_id}/claims",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\audits.py",
+      "line": 157,
+      "name": "get_audit_issues",
+      "method": "GET",
+      "path": "/{audit_id}/issues",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\audits.py",
+      "line": 189,
+      "name": "get_audit_explanation",
+      "method": "GET",
+      "path": "/{audit_id}/explanation",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\audits.py",
+      "line": 257,
+      "name": "human_override",
+      "method": "POST",
+      "path": "/{audit_id}/override",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\audits.py",
+      "line": 295,
+      "name": "rerun_audit",
+      "method": "POST",
+      "path": "/{audit_id}/rerun",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\backups.py",
+      "line": 33,
+      "name": "list_backups",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\backups.py",
+      "line": 47,
+      "name": "trigger_backup",
+      "method": "POST",
+      "path": "",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\backups.py",
+      "line": 59,
+      "name": "verify_backup",
+      "method": "POST",
+      "path": "/{backup_filename}/verify",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\backups.py",
+      "line": 77,
+      "name": "test_restore_backup",
+      "method": "POST",
+      "path": "/{backup_filename}/test-restore",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\discovery.py",
+      "line": 43,
+      "name": "trigger_discovery_run",
+      "method": "POST",
+      "path": "/run",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\discovery.py",
+      "line": 82,
+      "name": "pause_discovery",
+      "method": "POST",
+      "path": "/pause",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\discovery.py",
+      "line": 108,
+      "name": "resume_discovery",
+      "method": "POST",
+      "path": "/resume",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\discovery.py",
+      "line": 134,
+      "name": "discovery_status",
+      "method": "GET",
+      "path": "/status",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\discovery.py",
+      "line": 175,
+      "name": "discovery_stats",
+      "method": "GET",
+      "path": "/stats",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\discovery.py",
+      "line": 307,
+      "name": "seed_sources_endpoint",
+      "method": "POST",
+      "path": "/seed",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\drafts.py",
+      "line": 45,
+      "name": "create_draft_project",
+      "method": "POST",
+      "path": "",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\drafts.py",
+      "line": 90,
+      "name": "list_draft_projects",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\drafts.py",
+      "line": 106,
+      "name": "get_draft_project",
+      "method": "GET",
+      "path": "/{project_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\drafts.py",
+      "line": 121,
+      "name": "get_draft_strategy",
+      "method": "GET",
+      "path": "/{project_id}/strategy",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\drafts.py",
+      "line": 151,
+      "name": "get_draft_blueprint",
+      "method": "GET",
+      "path": "/{project_id}/blueprint",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\drafts.py",
+      "line": 177,
+      "name": "get_draft_versions",
+      "method": "GET",
+      "path": "/{project_id}/versions",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\drafts.py",
+      "line": 189,
+      "name": "get_draft_grounding",
+      "method": "GET",
+      "path": "/{project_id}/grounding",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\drafts.py",
+      "line": 219,
+      "name": "get_editorial_draft_package",
+      "method": "GET",
+      "path": "/{project_id}/package",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\drafts.py",
+      "line": 234,
+      "name": "get_draft_explanation",
+      "method": "GET",
+      "path": "/{project_id}/explanation",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\drafts.py",
+      "line": 288,
+      "name": "request_targeted_revision",
+      "method": "POST",
+      "path": "/{project_id}/revise",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\drafts.py",
+      "line": 312,
+      "name": "create_brand_voice_profile",
+      "method": "POST",
+      "path": "/brand-voices",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\drafts.py",
+      "line": 339,
+      "name": "list_brand_voice_profiles",
+      "method": "GET",
+      "path": "/brand-voices",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\events.py",
+      "line": 54,
+      "name": "list_events",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\events.py",
+      "line": 93,
+      "name": "get_trending_events",
+      "method": "GET",
+      "path": "/trending",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\events.py",
+      "line": 123,
+      "name": "get_emerging_events",
+      "method": "GET",
+      "path": "/emerging",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\events.py",
+      "line": 148,
+      "name": "get_event_detail",
+      "method": "GET",
+      "path": "/{event_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\events.py",
+      "line": 207,
+      "name": "get_event_documents",
+      "method": "GET",
+      "path": "/{event_id}/documents",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\events.py",
+      "line": 239,
+      "name": "get_event_sources",
+      "method": "GET",
+      "path": "/{event_id}/sources",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\events.py",
+      "line": 258,
+      "name": "get_event_entities",
+      "method": "GET",
+      "path": "/{event_id}/entities",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\events.py",
+      "line": 277,
+      "name": "get_event_snapshots",
+      "method": "GET",
+      "path": "/{event_id}/snapshots",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\events.py",
+      "line": 299,
+      "name": "merge_events_endpoint",
+      "method": "POST",
+      "path": "/merge",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\events.py",
+      "line": 320,
+      "name": "split_event_endpoint",
+      "method": "POST",
+      "path": "/{event_id}/split",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\events.py",
+      "line": 343,
+      "name": "reject_event",
+      "method": "POST",
+      "path": "/{event_id}/reject",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\events.py",
+      "line": 377,
+      "name": "restore_event",
+      "method": "POST",
+      "path": "/{event_id}/restore",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\experiments.py",
+      "line": 30,
+      "name": "list_experiments",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\experiments.py",
+      "line": 46,
+      "name": "create_experiment",
+      "method": "POST",
+      "path": "",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\experiments.py",
+      "line": 60,
+      "name": "get_experiment",
+      "method": "GET",
+      "path": "/{id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\experiments.py",
+      "line": 75,
+      "name": "start_experiment",
+      "method": "POST",
+      "path": "/{id}/start",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\experiments.py",
+      "line": 95,
+      "name": "stop_experiment",
+      "method": "POST",
+      "path": "/{id}/stop",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\experiments.py",
+      "line": 115,
+      "name": "evaluate_experiment_endpoint",
+      "method": "POST",
+      "path": "/{id}/evaluate",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\health.py",
+      "line": 24,
+      "name": "health",
+      "method": "GET",
+      "path": "/health",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\health.py",
+      "line": 58,
+      "name": "liveness",
+      "method": "GET",
+      "path": "/health/live",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\health.py",
+      "line": 64,
+      "name": "readiness",
+      "method": "GET",
+      "path": "/health/ready",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\keywords.py",
+      "line": 34,
+      "name": "list_keywords",
+      "method": "GET",
+      "path": "/keywords",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\keywords.py",
+      "line": 63,
+      "name": "get_keyword_detail",
+      "method": "GET",
+      "path": "/keywords/{keyword_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\keywords.py",
+      "line": 76,
+      "name": "list_keyword_clusters",
+      "method": "GET",
+      "path": "/keyword-clusters",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\keywords.py",
+      "line": 103,
+      "name": "get_keyword_cluster_detail",
+      "method": "GET",
+      "path": "/keyword-clusters/{cluster_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\learning.py",
+      "line": 42,
+      "name": "get_learning_health",
+      "method": "GET",
+      "path": "/health",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\learning.py",
+      "line": 65,
+      "name": "list_memories",
+      "method": "GET",
+      "path": "/memories",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\learning.py",
+      "line": 85,
+      "name": "create_memory",
+      "method": "POST",
+      "path": "/memories",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\learning.py",
+      "line": 112,
+      "name": "list_strategy_parameters",
+      "method": "GET",
+      "path": "/strategy",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\learning.py",
+      "line": 127,
+      "name": "get_calibration_report",
+      "method": "GET",
+      "path": "/calibration",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\learning.py",
+      "line": 148,
+      "name": "approve_strategy_change",
+      "method": "POST",
+      "path": "/strategy-change-requests/{param_id}/approve",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\operations.py",
+      "line": 44,
+      "name": "get_system_snapshot",
+      "method": "GET",
+      "path": "/snapshot",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\operations.py",
+      "line": 55,
+      "name": "get_autonomy_status",
+      "method": "GET",
+      "path": "/autonomy",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\operations.py",
+      "line": 82,
+      "name": "pause_autonomy",
+      "method": "POST",
+      "path": "/autonomy/pause",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\operations.py",
+      "line": 111,
+      "name": "resume_autonomy",
+      "method": "POST",
+      "path": "/autonomy/resume",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\operations.py",
+      "line": 139,
+      "name": "set_maintenance_mode",
+      "method": "POST",
+      "path": "/maintenance",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\operations.py",
+      "line": 166,
+      "name": "revalidate_backlog",
+      "method": "POST",
+      "path": "/backlog/revalidate",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\operations.py",
+      "line": 178,
+      "name": "list_dead_letter_jobs",
+      "method": "GET",
+      "path": "/dead-letter",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\operations.py",
+      "line": 207,
+      "name": "retry_dead_letter_job",
+      "method": "POST",
+      "path": "/dead-letter/{job_id}/retry",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\operations.py",
+      "line": 231,
+      "name": "get_content_pipeline",
+      "method": "GET",
+      "path": "/pipeline",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\operations.py",
+      "line": 265,
+      "name": "get_article_lineage",
+      "method": "GET",
+      "path": "/lineage/{article_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\opportunities.py",
+      "line": 54,
+      "name": "list_opportunities",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\opportunities.py",
+      "line": 96,
+      "name": "get_top_opportunities",
+      "method": "GET",
+      "path": "/top",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\opportunities.py",
+      "line": 124,
+      "name": "get_opportunity_watchlist",
+      "method": "GET",
+      "path": "/watchlist",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\opportunities.py",
+      "line": 140,
+      "name": "get_opportunity_detail",
+      "method": "GET",
+      "path": "/{opportunity_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\opportunities.py",
+      "line": 153,
+      "name": "get_opportunity_gaps",
+      "method": "GET",
+      "path": "/{opportunity_id}/gaps",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\opportunities.py",
+      "line": 166,
+      "name": "get_opportunity_serp",
+      "method": "GET",
+      "path": "/{opportunity_id}/serp",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\opportunities.py",
+      "line": 194,
+      "name": "get_opportunity_score_breakdown",
+      "method": "GET",
+      "path": "/{opportunity_id}/score",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\opportunities.py",
+      "line": 215,
+      "name": "get_opportunity_explanation",
+      "method": "GET",
+      "path": "/{opportunity_id}/explanation",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\opportunities.py",
+      "line": 251,
+      "name": "get_opportunity_handoff_package",
+      "method": "GET",
+      "path": "/{opportunity_id}/package",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\opportunities.py",
+      "line": 272,
+      "name": "override_opportunity_action",
+      "method": "POST",
+      "path": "/{opportunity_id}/action",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\opportunities.py",
+      "line": 302,
+      "name": "update_opportunity_status",
+      "method": "POST",
+      "path": "/{opportunity_id}/status",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\optimization.py",
+      "line": 54,
+      "name": "get_optimization_health",
+      "method": "GET",
+      "path": "/health",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\optimization.py",
+      "line": 81,
+      "name": "create_policy",
+      "method": "POST",
+      "path": "/policies",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\optimization.py",
+      "line": 95,
+      "name": "list_policies",
+      "method": "GET",
+      "path": "/policies",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\optimization.py",
+      "line": 110,
+      "name": "list_candidates",
+      "method": "GET",
+      "path": "/candidates",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\optimization.py",
+      "line": 129,
+      "name": "create_candidate",
+      "method": "POST",
+      "path": "/candidates",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\optimization.py",
+      "line": 145,
+      "name": "get_plan",
+      "method": "GET",
+      "path": "/plans/{plan_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\optimization.py",
+      "line": 160,
+      "name": "approve_plan",
+      "method": "POST",
+      "path": "/plans/{plan_id}/approve",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\optimization.py",
+      "line": 179,
+      "name": "reject_plan",
+      "method": "POST",
+      "path": "/plans/{plan_id}/reject",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\optimization.py",
+      "line": 198,
+      "name": "execute_plan",
+      "method": "POST",
+      "path": "/plans/{plan_id}/execute",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\optimization.py",
+      "line": 237,
+      "name": "rollback_plan",
+      "method": "POST",
+      "path": "/plans/{plan_id}/rollback",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\optimization.py",
+      "line": 277,
+      "name": "get_refresh_candidates",
+      "method": "GET",
+      "path": "/refresh-candidates",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\publications.py",
+      "line": 49,
+      "name": "create_publication_job",
+      "method": "POST",
+      "path": "",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\publications.py",
+      "line": 103,
+      "name": "list_publication_jobs",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\publications.py",
+      "line": 124,
+      "name": "get_publication_job",
+      "method": "GET",
+      "path": "/{job_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\publications.py",
+      "line": 137,
+      "name": "get_publication_preview",
+      "method": "GET",
+      "path": "/{job_id}/preview",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\publications.py",
+      "line": 150,
+      "name": "approve_publication",
+      "method": "POST",
+      "path": "/{job_id}/approve",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 47,
+      "name": "create_research_project",
+      "method": "POST",
+      "path": "",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 72,
+      "name": "list_research_projects",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 92,
+      "name": "get_research_project",
+      "method": "GET",
+      "path": "/{project_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 107,
+      "name": "get_research_status",
+      "method": "GET",
+      "path": "/{project_id}/status",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 134,
+      "name": "get_research_questions",
+      "method": "GET",
+      "path": "/{project_id}/questions",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 146,
+      "name": "get_research_sources",
+      "method": "GET",
+      "path": "/{project_id}/sources",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 158,
+      "name": "get_research_claims",
+      "method": "GET",
+      "path": "/{project_id}/claims",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 170,
+      "name": "get_research_evidence",
+      "method": "GET",
+      "path": "/{project_id}/evidence",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 186,
+      "name": "get_research_contradictions",
+      "method": "GET",
+      "path": "/{project_id}/contradictions",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 198,
+      "name": "get_research_timeline",
+      "method": "GET",
+      "path": "/{project_id}/timeline",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 214,
+      "name": "get_research_gaps",
+      "method": "GET",
+      "path": "/{project_id}/gaps",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 226,
+      "name": "get_final_research_package",
+      "method": "GET",
+      "path": "/{project_id}/package",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 276,
+      "name": "get_research_explanation",
+      "method": "GET",
+      "path": "/{project_id}/explanation",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\research.py",
+      "line": 308,
+      "name": "resolve_contradiction_admin",
+      "method": "POST",
+      "path": "/{project_id}/resolve-contradiction",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\secrets.py",
+      "line": 32,
+      "name": "list_secrets",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\secrets.py",
+      "line": 48,
+      "name": "store_secret",
+      "method": "POST",
+      "path": "",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\secrets.py",
+      "line": 72,
+      "name": "rotate_secret",
+      "method": "POST",
+      "path": "/rotate",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sites.py",
+      "line": 43,
+      "name": "list_sites",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sites.py",
+      "line": 55,
+      "name": "create_site",
+      "method": "POST",
+      "path": "",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sites.py",
+      "line": 83,
+      "name": "get_site_detail",
+      "method": "GET",
+      "path": "/{site_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sites.py",
+      "line": 96,
+      "name": "update_site",
+      "method": "PUT",
+      "path": "/{site_id}",
+      "decorators": [
+        "router.put"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sites.py",
+      "line": 126,
+      "name": "list_site_topics",
+      "method": "GET",
+      "path": "/{site_id}/topics",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sites.py",
+      "line": 139,
+      "name": "add_site_topic",
+      "method": "POST",
+      "path": "/{site_id}/topics",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sites.py",
+      "line": 165,
+      "name": "list_site_content",
+      "method": "GET",
+      "path": "/{site_id}/content",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sites.py",
+      "line": 186,
+      "name": "add_site_content",
+      "method": "POST",
+      "path": "/{site_id}/content",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sites.py",
+      "line": 221,
+      "name": "check_site_wordpress_health",
+      "method": "GET",
+      "path": "/{site_id}/health",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sources.py",
+      "line": 39,
+      "name": "list_sources",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sources.py",
+      "line": 68,
+      "name": "create_source",
+      "method": "POST",
+      "path": "",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sources.py",
+      "line": 107,
+      "name": "get_source",
+      "method": "GET",
+      "path": "/{source_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sources.py",
+      "line": 120,
+      "name": "update_source",
+      "method": "PATCH",
+      "path": "/{source_id}",
+      "decorators": [
+        "router.patch"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sources.py",
+      "line": 157,
+      "name": "enable_source",
+      "method": "POST",
+      "path": "/{source_id}/enable",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sources.py",
+      "line": 181,
+      "name": "disable_source",
+      "method": "POST",
+      "path": "/{source_id}/disable",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\sources.py",
+      "line": 205,
+      "name": "test_source",
+      "method": "POST",
+      "path": "/{source_id}/test",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\system.py",
+      "line": 48,
+      "name": "system_status",
+      "method": "GET",
+      "path": "/status",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\system.py",
+      "line": 114,
+      "name": "create_job",
+      "method": "POST",
+      "path": "/jobs",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\system.py",
+      "line": 148,
+      "name": "get_job",
+      "method": "GET",
+      "path": "/jobs/{job_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\system.py",
+      "line": 162,
+      "name": "transition_job",
+      "method": "PUT",
+      "path": "/jobs/{job_id}/status",
+      "decorators": [
+        "router.put"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\system.py",
+      "line": 208,
+      "name": "get_costs",
+      "method": "GET",
+      "path": "/costs",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\system.py",
+      "line": 221,
+      "name": "test_worker",
+      "method": "POST",
+      "path": "/worker/test",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\system.py",
+      "line": 245,
+      "name": "system_pause_autonomy",
+      "method": "POST",
+      "path": "/autonomy/pause",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\system.py",
+      "line": 258,
+      "name": "system_resume_autonomy",
+      "method": "POST",
+      "path": "/autonomy/resume",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\topic_clusters.py",
+      "line": 27,
+      "name": "list_topic_clusters",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\topic_clusters.py",
+      "line": 45,
+      "name": "get_topic_cluster_detail",
+      "method": "GET",
+      "path": "/{cluster_id}",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\trends.py",
+      "line": 51,
+      "name": "list_trends",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\trends.py",
+      "line": 75,
+      "name": "get_top_trends",
+      "method": "GET",
+      "path": "/top",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\trends.py",
+      "line": 101,
+      "name": "get_emerging_trends",
+      "method": "GET",
+      "path": "/emerging",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\users.py",
+      "line": 30,
+      "name": "get_my_profile",
+      "method": "GET",
+      "path": "/me",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\users.py",
+      "line": 47,
+      "name": "list_users",
+      "method": "GET",
+      "path": "",
+      "decorators": [
+        "router.get"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\users.py",
+      "line": 59,
+      "name": "create_user",
+      "method": "POST",
+      "path": "",
+      "decorators": [
+        "router.post"
+      ]
+    },
+    {
+      "file": "app\\api\\v1\\users.py",
+      "line": 87,
+      "name": "assign_site_role",
+      "method": "POST",
+      "path": "/{user_id}/site-role",
+      "decorators": [
+        "router.post"
+      ]
+    }
+  ],
+  "db_models": [
+    {
+      "file": "app\\core\\config.py",
+      "line": 26,
+      "class": "Settings",
+      "tablename": null,
+      "bases": [
+        "BaseSettings"
+      ]
+    },
+    {
+      "file": "app\\db\\base.py",
+      "line": 23,
+      "class": "ZohraBase",
+      "tablename": null,
+      "bases": [
+        "DeclarativeBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\agent_runs.py",
+      "line": 18,
+      "class": "AgentRun",
+      "tablename": "agent_runs",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\article_blueprints.py",
+      "line": 19,
+      "class": "ArticleBlueprint",
+      "tablename": "article_blueprints",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\audited_claims.py",
+      "line": 19,
+      "class": "AuditedClaim",
+      "tablename": "audited_claims",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\audit_checks.py",
+      "line": 21,
+      "class": "AuditCheck",
+      "tablename": "audit_checks",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\audit_issues.py",
+      "line": 20,
+      "class": "AuditIssue",
+      "tablename": "audit_issues",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\audit_logs.py",
+      "line": 17,
+      "class": "AuditLog",
+      "tablename": "audit_logs",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\audit_projects.py",
+      "line": 20,
+      "class": "AuditProject",
+      "tablename": "audit_projects",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\brand_voice_profiles.py",
+      "line": 20,
+      "class": "BrandVoiceProfile",
+      "tablename": "brand_voice_profiles",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\claims.py",
+      "line": 20,
+      "class": "Claim",
+      "tablename": "claims",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\content_gaps.py",
+      "line": 23,
+      "class": "ContentGap",
+      "tablename": "content_gaps",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\content_opportunities.py",
+      "line": 20,
+      "class": "ContentOpportunity",
+      "tablename": "content_opportunities",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\content_overlap_findings.py",
+      "line": 19,
+      "class": "ContentOverlapFinding",
+      "tablename": "content_overlap_findings",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\content_risk_policies.py",
+      "line": 16,
+      "class": "ContentRiskPolicy",
+      "tablename": "content_risk_policies",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\content_strategies.py",
+      "line": 19,
+      "class": "ContentStrategy",
+      "tablename": "content_strategies",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\contradictions.py",
+      "line": 19,
+      "class": "Contradiction",
+      "tablename": "contradictions",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\discovery_queries.py",
+      "line": 19,
+      "class": "DiscoveryQuery",
+      "tablename": "discovery_queries",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\document_versions.py",
+      "line": 19,
+      "class": "DocumentVersion",
+      "tablename": "document_versions",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\draft_claim_usage.py",
+      "line": 19,
+      "class": "DraftClaimUsage",
+      "tablename": "draft_claim_usage",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\draft_projects.py",
+      "line": 38,
+      "class": "DraftProject",
+      "tablename": "draft_projects",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\draft_versions.py",
+      "line": 19,
+      "class": "DraftVersion",
+      "tablename": "draft_versions",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\editorial_draft_packages.py",
+      "line": 20,
+      "class": "EditorialDraftPackage",
+      "tablename": "editorial_draft_packages",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\entities.py",
+      "line": 19,
+      "class": "Entity",
+      "tablename": "entities",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\entities.py",
+      "line": 34,
+      "class": "DocumentEntity",
+      "tablename": "document_entities",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\entity_relationships.py",
+      "line": 18,
+      "class": "EntityRelationship",
+      "tablename": "entity_relationships",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\events.py",
+      "line": 20,
+      "class": "Event",
+      "tablename": "events",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\event_documents.py",
+      "line": 19,
+      "class": "EventDocument",
+      "tablename": "event_documents",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\event_snapshots.py",
+      "line": 20,
+      "class": "EventSnapshot",
+      "tablename": "event_snapshots",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\evidence_items.py",
+      "line": 20,
+      "class": "EvidenceItem",
+      "tablename": "evidence_items",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\final_audit_packages.py",
+      "line": 21,
+      "class": "FinalAuditPackage",
+      "tablename": "final_audit_packages",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\headline_candidates.py",
+      "line": 19,
+      "class": "HeadlineCandidate",
+      "tablename": "headline_candidates",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\internal_link_candidates.py",
+      "line": 19,
+      "class": "InternalLinkCandidate",
+      "tablename": "internal_link_candidates",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\jobs.py",
+      "line": 16,
+      "class": "Job",
+      "tablename": "jobs",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\keywords.py",
+      "line": 22,
+      "class": "Keyword",
+      "tablename": "keywords",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\keyword_clusters.py",
+      "line": 18,
+      "class": "KeywordCluster",
+      "tablename": "keyword_clusters",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\keyword_clusters.py",
+      "line": 52,
+      "class": "KeywordClusterMember",
+      "tablename": "keyword_cluster_members",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\media_assets.py",
+      "line": 20,
+      "class": "MediaPlan",
+      "tablename": "media_plans",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\media_assets.py",
+      "line": 65,
+      "class": "MediaAsset",
+      "tablename": "media_assets",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\model_usage.py",
+      "line": 17,
+      "class": "ModelUsage",
+      "tablename": "model_usage",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\operations.py",
+      "line": 94,
+      "class": "User",
+      "tablename": "users",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\operations.py",
+      "line": 111,
+      "class": "UserSiteRole",
+      "tablename": "user_site_roles",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\operations.py",
+      "line": 139,
+      "class": "Alert",
+      "tablename": "alerts",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\operations.py",
+      "line": 167,
+      "class": "NotificationLog",
+      "tablename": "notification_logs",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\operations.py",
+      "line": 186,
+      "class": "NotificationPreference",
+      "tablename": "notification_preferences",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\operations.py",
+      "line": 213,
+      "class": "OutboxEvent",
+      "tablename": "outbox_events",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\operations.py",
+      "line": 230,
+      "class": "ScheduledTaskRegistry",
+      "tablename": "scheduled_tasks",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\operations.py",
+      "line": 252,
+      "class": "SecurityEvent",
+      "tablename": "security_events",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\operations.py",
+      "line": 272,
+      "class": "SecretRecord",
+      "tablename": "secret_records",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\opportunity_snapshots.py",
+      "line": 20,
+      "class": "OpportunitySnapshot",
+      "tablename": "opportunity_snapshots",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\opportunity_snapshots.py",
+      "line": 55,
+      "class": "OpportunityWatchlist",
+      "tablename": "opportunity_watchlist",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 112,
+      "class": "OptimizationPolicy",
+      "tablename": "optimization_policies",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 145,
+      "class": "OptimizationCandidate",
+      "tablename": "optimization_candidates",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 184,
+      "class": "OptimizationPlan",
+      "tablename": "optimization_plans",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 229,
+      "class": "ContentSnapshot",
+      "tablename": "content_snapshots",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 269,
+      "class": "OptimizationChangeset",
+      "tablename": "optimization_changesets",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 317,
+      "class": "OptimizationApproval",
+      "tablename": "optimization_approvals",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 345,
+      "class": "Experiment",
+      "tablename": "experiments",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 387,
+      "class": "PredictionOutcome",
+      "tablename": "prediction_outcomes",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 416,
+      "class": "StrategyMemory",
+      "tablename": "strategy_memories",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 443,
+      "class": "StrategyParameter",
+      "tablename": "strategy_parameters",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 473,
+      "class": "StrategyVersion",
+      "tablename": "strategy_versions",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 499,
+      "class": "FreshnessPolicy",
+      "tablename": "freshness_policies",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 520,
+      "class": "RefreshSchedule",
+      "tablename": "refresh_schedule",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 549,
+      "class": "ArticleRefreshHistory",
+      "tablename": "article_refresh_history",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\optimization.py",
+      "line": 585,
+      "class": "OptimizationEvent",
+      "tablename": "optimization_events",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\publication_authorizations.py",
+      "line": 21,
+      "class": "PublicationAuthorization",
+      "tablename": "publication_authorizations",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\publication_jobs.py",
+      "line": 20,
+      "class": "PublicationJob",
+      "tablename": "publication_jobs",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\publication_jobs.py",
+      "line": 91,
+      "class": "PublicationSchedule",
+      "tablename": "publication_schedules",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\publication_jobs.py",
+      "line": 121,
+      "class": "PublicationEvent",
+      "tablename": "publication_events",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\published_articles.py",
+      "line": 20,
+      "class": "PublicationApproval",
+      "tablename": "publication_approvals",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\published_articles.py",
+      "line": 39,
+      "class": "PublishedArticle",
+      "tablename": "published_articles",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\published_articles.py",
+      "line": 98,
+      "class": "IndexingJob",
+      "tablename": "indexing_jobs",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\questions.py",
+      "line": 19,
+      "class": "DiscoveredQuestion",
+      "tablename": "discovered_questions",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\research_followup_requests.py",
+      "line": 21,
+      "class": "ResearchFollowupRequest",
+      "tablename": "research_followup_requests",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\research_gaps.py",
+      "line": 19,
+      "class": "ResearchGap",
+      "tablename": "research_gaps",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\research_notes.py",
+      "line": 18,
+      "class": "ResearchNote",
+      "tablename": "research_notes",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\research_packages.py",
+      "line": 20,
+      "class": "ResearchPackage",
+      "tablename": "research_packages",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\research_projects.py",
+      "line": 20,
+      "class": "ResearchProject",
+      "tablename": "research_projects",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\research_queries.py",
+      "line": 19,
+      "class": "ResearchQuery",
+      "tablename": "research_queries",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\research_questions.py",
+      "line": 18,
+      "class": "ResearchQuestion",
+      "tablename": "research_questions",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\research_sources.py",
+      "line": 20,
+      "class": "ResearchSource",
+      "tablename": "research_sources",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\research_timeline.py",
+      "line": 20,
+      "class": "ResearchTimelineEvent",
+      "tablename": "research_timeline_events",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\revision_tasks.py",
+      "line": 19,
+      "class": "RevisionTask",
+      "tablename": "revision_tasks",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 32,
+      "class": "SearchConsoleProperty",
+      "tablename": "search_console_properties",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 64,
+      "class": "AnalyticsIngestionProfile",
+      "tablename": "analytics_ingestion_profiles",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 78,
+      "class": "AnalyticsIngestionRun",
+      "tablename": "analytics_ingestion_runs",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 111,
+      "class": "SearchAnalyticsRaw",
+      "tablename": "search_analytics_raw",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 145,
+      "class": "PageDailyMetric",
+      "tablename": "page_daily_metrics",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 183,
+      "class": "QueryDailyMetric",
+      "tablename": "query_daily_metrics",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 210,
+      "class": "PageQueryDailyMetric",
+      "tablename": "page_query_daily_metrics",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 244,
+      "class": "PageCountryDailyMetric",
+      "tablename": "page_country_daily_metrics",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 273,
+      "class": "PageDeviceDailyMetric",
+      "tablename": "page_device_daily_metrics",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 302,
+      "class": "SiteDailyMetric",
+      "tablename": "site_daily_metrics",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 327,
+      "class": "IndexingStatusHistory",
+      "tablename": "indexing_status_history",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 361,
+      "class": "QueryAlignmentRecord",
+      "tablename": "query_alignment_records",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 390,
+      "class": "AnalyticsQueryCluster",
+      "tablename": "query_clusters",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 409,
+      "class": "AnalyticsQueryClusterMember",
+      "tablename": "query_cluster_members",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 424,
+      "class": "CTRBenchmark",
+      "tablename": "ctr_benchmarks",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 452,
+      "class": "ArticlePerformanceSnapshot",
+      "tablename": "article_performance_snapshots",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 503,
+      "class": "TopicPerformanceSnapshot",
+      "tablename": "topic_performance_snapshots",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 531,
+      "class": "SitePerformanceSnapshot",
+      "tablename": "site_performance_snapshots",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 560,
+      "class": "SearchCannibalizationEvent",
+      "tablename": "search_cannibalization_events",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 588,
+      "class": "AnalyticsAnomaly",
+      "tablename": "analytics_anomalies",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 617,
+      "class": "PerformanceOpportunity",
+      "tablename": "performance_opportunities",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 652,
+      "class": "PerformanceAnnotation",
+      "tablename": "performance_annotations",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 674,
+      "class": "AnalyticsWatermark",
+      "tablename": "analytics_watermarks",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 699,
+      "class": "PerformanceSuccessProfile",
+      "tablename": "performance_success_profiles",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 722,
+      "class": "ArticleRevenueDaily",
+      "tablename": "article_revenue_daily",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\search_analytics.py",
+      "line": 746,
+      "class": "ArticleEconomicsSnapshot",
+      "tablename": "article_economics_snapshots",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\sentence_grounding.py",
+      "line": 19,
+      "class": "SentenceGrounding",
+      "tablename": "sentence_grounding",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\seo_publication_packages.py",
+      "line": 19,
+      "class": "SEOPublicationPackage",
+      "tablename": "seo_publication_packages",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\serp.py",
+      "line": 20,
+      "class": "SERPSnapshot",
+      "tablename": "serp_snapshots",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\serp.py",
+      "line": 56,
+      "class": "SERPResult",
+      "tablename": "serp_results",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\sites.py",
+      "line": 17,
+      "class": "Site",
+      "tablename": "sites",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\site_content.py",
+      "line": 20,
+      "class": "SiteContent",
+      "tablename": "site_content",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\site_health.py",
+      "line": 19,
+      "class": "SiteHealth",
+      "tablename": "site_health",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\site_health.py",
+      "line": 46,
+      "class": "OrphanMediaRecord",
+      "tablename": "orphan_media_records",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\site_topics.py",
+      "line": 19,
+      "class": "SiteTopic",
+      "tablename": "site_topics",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\sources.py",
+      "line": 18,
+      "class": "Source",
+      "tablename": "sources",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\source_documents.py",
+      "line": 20,
+      "class": "SourceDocument",
+      "tablename": "source_documents",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\system_errors.py",
+      "line": 18,
+      "class": "SystemError",
+      "tablename": "system_errors",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\system_settings.py",
+      "line": 14,
+      "class": "SystemSetting",
+      "tablename": "system_settings",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\topic_clusters.py",
+      "line": 18,
+      "class": "TopicCluster",
+      "tablename": "topic_clusters",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\db\\models\\visual_brand_profiles.py",
+      "line": 19,
+      "class": "VisualBrandProfile",
+      "tablename": "visual_brand_profiles",
+      "bases": [
+        "ZohraBase"
+      ]
+    },
+    {
+      "file": "app\\llm\\base.py",
+      "line": 24,
+      "class": "LLMRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\llm\\base.py",
+      "line": 36,
+      "class": "LLMResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 133,
+      "class": "SearchConsolePropertyCreate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 143,
+      "class": "SearchConsolePropertyResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 166,
+      "class": "IngestionProfileCreate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 176,
+      "class": "IngestionProfileResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 192,
+      "class": "IngestionRunResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 212,
+      "class": "SearchMetrics",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 220,
+      "class": "PageDailyMetricResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 237,
+      "class": "QueryDailyMetricResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 253,
+      "class": "PageQueryDailyMetricResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 268,
+      "class": "SiteDailyMetricResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 283,
+      "class": "IndexingStatusResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 303,
+      "class": "IndexingDiagnostic",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 318,
+      "class": "QueryAlignmentResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 332,
+      "class": "QueryClusterResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 345,
+      "class": "QueryClassificationResult",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 357,
+      "class": "CTRBenchmarkResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 374,
+      "class": "CTRDiagnosticResult",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 390,
+      "class": "RankingSnapshot",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 400,
+      "class": "RankingTrend",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 413,
+      "class": "Page2Opportunity",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 424,
+      "class": "NearTopOpportunity",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 437,
+      "class": "ArticlePerformanceSnapshotResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 468,
+      "class": "TopicPerformanceSnapshotResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 486,
+      "class": "SitePerformanceSnapshotResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 507,
+      "class": "AnomalyResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 528,
+      "class": "CannibalizationEventResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 547,
+      "class": "PerformanceDiagnostic",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 559,
+      "class": "OptimizationCandidatePackage",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 582,
+      "class": "PerformanceOpportunityResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 608,
+      "class": "PerformanceAnnotationCreate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 617,
+      "class": "PerformanceAnnotationResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 632,
+      "class": "AnalyticsSyncRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 640,
+      "class": "IndexingInspectionRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 646,
+      "class": "PerformanceQueryParams",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\analytics.py",
+      "line": 658,
+      "class": "SiteAnalyticsSummary",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 22,
+      "class": "ErrorDetail",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 27,
+      "class": "ApiResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 39,
+      "class": "ServiceHealth",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 44,
+      "class": "HealthResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 54,
+      "class": "SystemStatusResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 75,
+      "class": "TokenResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 84,
+      "class": "JobCreate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 93,
+      "class": "JobResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 109,
+      "class": "JobTransition",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 116,
+      "class": "AgentRunCreate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 126,
+      "class": "AgentRunResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 156,
+      "class": "CostSummary",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 171,
+      "class": "AuditLogResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 188,
+      "class": "SettingResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\api.py",
+      "line": 198,
+      "class": "SettingUpdate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 84,
+      "class": "AuditCreateRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 92,
+      "class": "HumanOverrideRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 103,
+      "class": "ParsedSentence",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 113,
+      "class": "ParsedParagraph",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 119,
+      "class": "ParsedSection",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 127,
+      "class": "ParsedDraftContent",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 141,
+      "class": "ExtractedClaim",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 153,
+      "class": "ClaimMatchResult",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 169,
+      "class": "CitationValidationResult",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 181,
+      "class": "AuditQualityScores",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 197,
+      "class": "AuditIssueItem",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 212,
+      "class": "RevisionPackage",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 222,
+      "class": "ResearchReturnPackage",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 233,
+      "class": "HumanReviewPackage",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 242,
+      "class": "FinalAuditPackageData",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 268,
+      "class": "AuditProjectResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 310,
+      "class": "AuditStatusResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\audit.py",
+      "line": 321,
+      "class": "AuditExplanationResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 26,
+      "class": "SourceBase",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 47,
+      "class": "SourceCreate",
+      "tablename": null,
+      "bases": [
+        "SourceBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 51,
+      "class": "SourceUpdate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 72,
+      "class": "SourceResponse",
+      "tablename": null,
+      "bases": [
+        "SourceBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 89,
+      "class": "SourceTestResult",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 103,
+      "class": "SourceDocumentResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 138,
+      "class": "EntityResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 159,
+      "class": "EventDocumentResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 170,
+      "class": "EventResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 235,
+      "class": "EventMergeRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 241,
+      "class": "EventSplitRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 252,
+      "class": "TrendItemResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 272,
+      "class": "EventSnapshotResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 292,
+      "class": "DiscoveryRunRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 297,
+      "class": "DiscoveryStatusResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\discovery.py",
+      "line": 307,
+      "class": "DiscoveryStatsResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 58,
+      "class": "DraftCreateRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 68,
+      "class": "DraftReviseRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 74,
+      "class": "EditorialOverrideRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 84,
+      "class": "BrandVoiceProfileCreate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 103,
+      "class": "ContentStrategyData",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 120,
+      "class": "SectionBlueprint",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 136,
+      "class": "ArticleBlueprintData",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 152,
+      "class": "HeadlineCandidateResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 169,
+      "class": "DraftSection",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 178,
+      "class": "DraftFAQItem",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 184,
+      "class": "DraftTableItem",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 192,
+      "class": "SentenceGroundingDetail",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 201,
+      "class": "DraftQualityScores",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 216,
+      "class": "InternalLinkCandidateResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 225,
+      "class": "BrandVoiceProfileResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 247,
+      "class": "EditorialArticleContent",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 255,
+      "class": "EditorialDraftPackageData",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 286,
+      "class": "DraftVersionResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 303,
+      "class": "DraftProjectResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\editorial.py",
+      "line": 337,
+      "class": "DraftExplanationResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 29,
+      "class": "UserCreate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 37,
+      "class": "UserUpdate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 44,
+      "class": "UserResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 57,
+      "class": "UserSiteRoleAssignment",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 64,
+      "class": "AutonomyStatusResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 74,
+      "class": "AutonomyPauseRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 78,
+      "class": "AutonomyResumeRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 82,
+      "class": "MaintenanceModeRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 89,
+      "class": "AlertCreateRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 101,
+      "class": "AlertResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 126,
+      "class": "BackupItemResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 135,
+      "class": "BackupVerifyResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 141,
+      "class": "BackupRestoreTestResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 149,
+      "class": "SecretCreateRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 155,
+      "class": "SecretMetadataResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 166,
+      "class": "SystemSnapshotResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 181,
+      "class": "DeadLetterJobResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\operations.py",
+      "line": 190,
+      "class": "JobRetryRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 33,
+      "class": "SiteBase",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 45,
+      "class": "SiteCreate",
+      "tablename": null,
+      "bases": [
+        "SiteBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 49,
+      "class": "SiteUpdate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 58,
+      "class": "SiteResponse",
+      "tablename": null,
+      "bases": [
+        "SiteBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 66,
+      "class": "SiteTopicBase",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 74,
+      "class": "SiteTopicCreate",
+      "tablename": null,
+      "bases": [
+        "SiteTopicBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 78,
+      "class": "SiteTopicResponse",
+      "tablename": null,
+      "bases": [
+        "SiteTopicBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 87,
+      "class": "SiteContentBase",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 104,
+      "class": "SiteContentCreate",
+      "tablename": null,
+      "bases": [
+        "SiteContentBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 108,
+      "class": "SiteContentResponse",
+      "tablename": null,
+      "bases": [
+        "SiteContentBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 124,
+      "class": "KeywordBase",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 152,
+      "class": "KeywordCreate",
+      "tablename": null,
+      "bases": [
+        "KeywordBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 156,
+      "class": "KeywordResponse",
+      "tablename": null,
+      "bases": [
+        "KeywordBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 166,
+      "class": "KeywordClusterMemberResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 177,
+      "class": "KeywordClusterBase",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 190,
+      "class": "KeywordClusterResponse",
+      "tablename": null,
+      "bases": [
+        "KeywordClusterBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 204,
+      "class": "SERPResultItem",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 225,
+      "class": "SERPSnapshotResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 250,
+      "class": "ContentGapResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 265,
+      "class": "DiscoveredQuestionResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 283,
+      "class": "TopicClusterBase",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 295,
+      "class": "TopicClusterCreate",
+      "tablename": null,
+      "bases": [
+        "TopicClusterBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 299,
+      "class": "TopicClusterResponse",
+      "tablename": null,
+      "bases": [
+        "TopicClusterBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 312,
+      "class": "ScoreBreakdown",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 329,
+      "class": "PenaltiesBreakdown",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 337,
+      "class": "ContentOpportunityBase",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 393,
+      "class": "ContentOpportunityResponse",
+      "tablename": null,
+      "bases": [
+        "ContentOpportunityBase"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 405,
+      "class": "OpportunityExplanationResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 422,
+      "class": "OpportunitySnapshotResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 440,
+      "class": "OpportunityWatchlistResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 452,
+      "class": "ContentActionOverrideRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\opportunity.py",
+      "line": 463,
+      "class": "ContentOpportunityPackage",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\optimization.py",
+      "line": 14,
+      "class": "OptimizationPolicyCreate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\optimization.py",
+      "line": 40,
+      "class": "OptimizationCandidateCreate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\optimization.py",
+      "line": 67,
+      "class": "OptimizationPlanResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\optimization.py",
+      "line": 96,
+      "class": "ApprovalActionRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\optimization.py",
+      "line": 101,
+      "class": "ExecutionRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\optimization.py",
+      "line": 106,
+      "class": "RollbackRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\optimization.py",
+      "line": 111,
+      "class": "ExperimentCreate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\optimization.py",
+      "line": 141,
+      "class": "StrategyMemoryResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\optimization.py",
+      "line": 159,
+      "class": "StrategyParameterResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\optimization.py",
+      "line": 175,
+      "class": "StrategyParameterUpdate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\optimization.py",
+      "line": 181,
+      "class": "OptimizationHealthResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\optimization.py",
+      "line": 192,
+      "class": "LearningHealthResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\publishing.py",
+      "line": 88,
+      "class": "SiteProfileCreate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\publishing.py",
+      "line": 118,
+      "class": "SiteProfileUpdate",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\publishing.py",
+      "line": 145,
+      "class": "SiteHealthResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\publishing.py",
+      "line": 160,
+      "class": "MediaPlanItem",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\publishing.py",
+      "line": 179,
+      "class": "MediaAssetResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\publishing.py",
+      "line": 209,
+      "class": "ResolvedInternalLink",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\publishing.py",
+      "line": 217,
+      "class": "SEOPackageData",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\publishing.py",
+      "line": 237,
+      "class": "PublicationPreviewData",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\publishing.py",
+      "line": 255,
+      "class": "PublicationCreateRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\publishing.py",
+      "line": 264,
+      "class": "PublicationJobResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\publishing.py",
+      "line": 288,
+      "class": "PublicationApprovalRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\publishing.py",
+      "line": 293,
+      "class": "PublishedArticlePackage",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 155,
+      "class": "ResearchProjectCreateRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 161,
+      "class": "ContradictionResolveRequest",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 171,
+      "class": "ResearchQuestionResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 186,
+      "class": "ResearchQueryResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 202,
+      "class": "ResearchSourceResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 227,
+      "class": "DocumentVersionResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 239,
+      "class": "EvidenceItemResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 255,
+      "class": "ClaimResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 281,
+      "class": "ContradictionResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 297,
+      "class": "EntityRelationshipResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 310,
+      "class": "ResearchTimelineResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 323,
+      "class": "ResearchGapResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 335,
+      "class": "ResearchQualityResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 349,
+      "class": "ResearchProjectResponse",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 383,
+      "class": "VerifiedFactHandoff",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 403,
+      "class": "WriterInstructions",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 410,
+      "class": "ResearchQuestionsSummary",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    },
+    {
+      "file": "app\\schemas\\research.py",
+      "line": 416,
+      "class": "FinalResearchPackage",
+      "tablename": null,
+      "bases": [
+        "BaseModel"
+      ]
+    }
+  ],
+  "summary": {
+    "total_keywords": 17,
+    "total_empty_functions": 0,
+    "total_swallowed_exceptions": 2,
+    "total_broad_unlogged": 1,
+    "total_routes_found": 174,
+    "total_db_models_found": 323
+  }
+}

@@ -1,0 +1,224 @@
+version: "3.9"
+
+services:
+  # ── 1. Edge Reverse Proxy (Caddy / TLS Termination / Hardened Headers) ─────
+  reverse-proxy:
+    image: caddy:2-alpine
+    container_name: zohra-reverse-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - api
+      - frontend
+    networks:
+      - zohra-network
+
+  # ── 2. Zohra Command Center (Next.js / Frontend) ───────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: zohra-command-center
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://api:8000
+    networks:
+      - zohra-network
+
+  # ── 3. Zohra Core API (FastAPI) ───────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: zohra-api
+    restart: always
+    env_file:
+      - .env.production
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://zohra:${POSTGRES_PASSWORD}@postgres:5432/zohra_publisher
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+      - APP_ENV=production
+    volumes:
+      - shared_storage:/app/storage
+      - shared_backups:/app/backups
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - zohra-network
+
+  # ── 4. Dedicated Celery Workers (Queue Isolation) ──────────────────────────
+  worker-general:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: zohra-worker-general
+    command: celery -A app.workers.celery_app worker -Q default,discovery,research -l info --concurrency=4
+    restart: always
+    env_file:
+      - .env.production
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://zohra:${POSTGRES_PASSWORD}@postgres:5432/zohra_publisher
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+    volumes:
+      - shared_storage:/app/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - zohra-network
+
+  worker-publishing:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: zohra-worker-publishing
+    command: celery -A app.workers.celery_app worker -Q publishing,verification -l info --concurrency=2
+    restart: always
+    env_file:
+      - .env.production
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://zohra:${POSTGRES_PASSWORD}@postgres:5432/zohra_publisher
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+    volumes:
+      - shared_storage:/app/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - zohra-network
+
+  worker-analytics:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: zohra-worker-analytics
+    command: celery -A app.workers.celery_app worker -Q analytics,optimization -l info --concurrency=2
+    restart: always
+    env_file:
+      - .env.production
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://zohra:${POSTGRES_PASSWORD}@postgres:5432/zohra_publisher
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+    volumes:
+      - shared_storage:/app/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - zohra-network
+
+  # ── 5. Celery Beat (Scheduler Registry) ────────────────────────────────────
+  beat:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: zohra-beat
+    command: celery -A app.workers.celery_app beat -l info
+    restart: always
+    env_file:
+      - .env.production
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://zohra:${POSTGRES_PASSWORD}@postgres:5432/zohra_publisher
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - zohra-network
+
+  # ── 6. PostgreSQL 16 (Durable Operational Store) ───────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: zohra-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: zohra_publisher
+      POSTGRES_USER: zohra
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zohra -d zohra_publisher"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - zohra-network
+
+  # ── 7. Redis 7 (Queues & Distributed State) ────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: zohra-redis
+    restart: always
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy volatile-lru
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - zohra-network
+
+  # ── 8. Backup Cron Service ────────────────────────────────────────────────
+  backup-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: zohra-backup-runner
+    command: >
+      bash -c 'while true; do
+        python -c "import asyncio; from app.services.backup import BackupManager; asyncio.run(BackupManager().create_backup())";
+        sleep 86400;
+      done'
+    restart: always
+    env_file:
+      - .env.production
+    environment:
+      - DATABASE_URL=postgresql://zohra:${POSTGRES_PASSWORD}@postgres:5432/zohra_publisher
+    volumes:
+      - shared_backups:/app/backups
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - zohra-network
+
+networks:
+  zohra-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  shared_storage:
+  shared_backups:
+  caddy_data:
+  caddy_config:

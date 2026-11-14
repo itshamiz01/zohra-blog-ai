@@ -1,0 +1,57 @@
+# ==============================================================================
+# Zohra Autonomous Publishing OS — Hardened Production Container
+# Non-root execution, minimal attack surface, pinned dependencies
+# ==============================================================================
+
+# ── Stage 1: Build & Dependencies ─────────────────────────────────────────────
+FROM python:3.12-slim AS builder
+
+WORKDIR /build
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY pyproject.toml README.md ./
+RUN pip install --no-cache-dir --upgrade pip build wheel && \
+    pip wheel --no-cache-dir --no-deps --wheel-dir /build/wheels -e .
+
+# ── Stage 2: Hardened Runtime ────────────────────────────────────────────────
+FROM python:3.12-slim AS runtime
+
+WORKDIR /app
+
+# Install postgresql-client for pg_dump backup execution and curl for healthchecks
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    postgresql-client \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create dedicated non-root application user and group
+RUN groupadd -g 10001 zohra && \
+    useradd -u 10001 -g zohra -s /bin/bash -m zohra
+
+# Copy and install pre-built wheels
+COPY --from=builder /build/wheels /wheels
+RUN pip install --no-cache-dir /wheels/* && rm -rf /wheels
+
+# Copy application source code (ignoring .env, credentials, tests via .dockerignore)
+COPY --chown=zohra:zohra app /app/app
+COPY --chown=zohra:zohra migrations /app/migrations
+COPY --chown=zohra:zohra alembic.ini /app/alembic.ini
+COPY --chown=zohra:zohra pyproject.toml /app/pyproject.toml
+
+# Create writable storage and backup directories with strict permissions
+RUN mkdir -p /app/storage /app/backups && \
+    chown -R zohra:zohra /app/storage /app/backups
+
+USER zohra
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=15s --timeout=5s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:8000/health/live || exit 1
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
