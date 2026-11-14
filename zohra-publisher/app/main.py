@@ -236,7 +236,7 @@ def create_app() -> FastAPI:
     @app.get("/sw.js", include_in_schema=False)
     async def pwa_service_worker():
         js = (
-            "const CACHE='zohra-blog-v1';"
+            "const CACHE='zohra-blog-v2';"
             "const SHELL=['/','/install','/manifest.webmanifest','/icons/icon-192.png','/icons/icon-512.png'];"
             "self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});"
             "self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});"

@@ -478,52 +478,17 @@
 
   <script>
     let isPaused = false;
-    let authToken = localStorage.getItem('zohra_auth_token') || '';
-
-    async function ensureAuth() {
-      if (authToken) return authToken;
-      try {
-        const creds = btoa('admin:testpass123');
-        const res = await fetch('/api/v1/admin/login', {
-          method: 'POST',
-          headers: { 'Authorization': `Basic ${creds}` }
-        });
-        const json = await res.json();
-        if (json.success && json.data && json.data.access_token) {
-          authToken = json.data.access_token;
-          localStorage.setItem('zohra_auth_token', authToken);
-          return authToken;
-        }
-      } catch (err) {
-        console.error('Auto-login error:', err);
-      }
-      return '';
-    }
+    // No sign-in anywhere in this app (owner's choice): clear any token an
+    // older version may have stored, and call the API directly.
+    localStorage.removeItem('zohra_auth_token');
 
     async function fetchApi(url, opts = {}) {
       try {
-        await ensureAuth();
         const headers = {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`,
           ...(opts.headers || {})
         };
         const res = await fetch(url, { ...opts, headers });
-        if (res.status === 401) {
-          authToken = '';
-          localStorage.removeItem('zohra_auth_token');
-          await ensureAuth();
-          const retryRes = await fetch(url, {
-            ...opts,
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${authToken}`,
-              ...(opts.headers || {})
-            }
-          });
-          const json = await retryRes.json();
-          return json.data || json;
-        }
         const json = await res.json();
         return json.data || json;
       } catch (e) {

@@ -101,10 +101,30 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
 
   const payload = await response.json();
   if (!response.ok || !payload.success) {
-    throw new Error(payload.error?.message || payload.detail || "API request failed");
+    throw new Error(payload.error?.message || payload.message || payload.detail || "API request failed");
   }
 
   return payload.data;
+}
+
+
+async function requestFlexible<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  // Some endpoints return the {success, data} envelope; a few return a bare
+  // array/object. Accept both so every page can rely on one helper.
+  const response = await fetch(`${BASE_URL}${endpoint}`, {
+    ...options,
+    headers: { "Content-Type": "application/json", ...(options.headers as Record<string, string>) },
+  });
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) {
+    const msg = (payload && (payload.detail?.[0]?.msg || payload.detail)) || "API request failed";
+    throw new Error(typeof msg === "string" ? msg : "API request failed");
+  }
+  if (payload && typeof payload === "object" && "success" in payload) {
+    if (!payload.success) throw new Error(payload.error?.message || "API request failed");
+    return payload.data as T;
+  }
+  return payload as T;
 }
 
 export const api = {
@@ -216,5 +236,59 @@ export const api = {
       method: "POST",
       body: JSON.stringify(data),
     }),
+
+  // Discovery Engine
+  getDiscoveryStatus: () => request<any>("/api/v1/discovery/status"),
+  getDiscoveryStats: () => request<any>("/api/v1/discovery/stats"),
+  runDiscovery: () =>
+    request<any>("/api/v1/discovery/run", { method: "POST", body: JSON.stringify({ force: true }) }),
+  pauseDiscovery: () => request<any>("/api/v1/discovery/pause", { method: "POST" }),
+  resumeDiscovery: () => request<any>("/api/v1/discovery/resume", { method: "POST" }),
+
+  // Opportunities, Trends, Events, Keywords
+  listOpportunities: () => request<any[]>("/api/v1/opportunities"),
+  listTopOpportunities: () => request<any[]>("/api/v1/opportunities/top"),
+  listWatchlist: () => request<any[]>("/api/v1/opportunities/watchlist"),
+  listTrends: () => request<any[]>("/api/v1/trends"),
+  listTopTrends: () => request<any[]>("/api/v1/trends/top"),
+  listEvents: () => request<any[]>("/api/v1/events"),
+  listKeywords: () => request<any[]>("/api/v1/keywords"),
+
+  // Research & Content (bare-array endpoints -> flexible request)
+  listResearch: () => requestFlexible<any[]>("/api/v1/research"),
+  listDrafts: () => requestFlexible<any[]>("/api/v1/drafts"),
+
+  // Publishing & Approvals
+  listPublications: () => request<any[]>("/api/v1/publications"),
+  approvePublication: (jobId: string) =>
+    request<any>(`/api/v1/publications/${jobId}/approve`, { method: "POST" }),
+
+  // Analytics (site-scoped)
+  getAnalyticsPages: (siteId: string) => request<any[]>(`/api/v1/analytics/pages?site_id=${siteId}`),
+  getAnalyticsQueries: (siteId: string) => request<any[]>(`/api/v1/analytics/queries?site_id=${siteId}`),
+  getAnalyticsAnomalies: (siteId: string) => request<any[]>(`/api/v1/analytics/anomalies?site_id=${siteId}`),
+
+  // Optimization
+  getOptimizationHealth: () => request<any>("/api/v1/optimization/health"),
+  listOptimizationCandidates: (siteId: string) =>
+    request<any[]>(`/api/v1/optimization/candidates?site_id=${siteId}`),
+  listOptimizationPolicies: (siteId: string) =>
+    request<any[]>(`/api/v1/optimization/policies?site_id=${siteId}`),
+
+  // Experiments (site-scoped)
+  listExperiments: (siteId: string) => request<any[]>(`/api/v1/experiments?site_id=${siteId}`),
+  startExperiment: (id: string) => request<any>(`/api/v1/experiments/${id}/start`, { method: "POST" }),
+  stopExperiment: (id: string) => request<any>(`/api/v1/experiments/${id}/stop`, { method: "POST" }),
+
+  // Learning Engine
+  getLearningHealth: () => request<any>("/api/v1/learning/health"),
+  listLearningMemories: () => request<any[]>("/api/v1/learning/memories"),
+  getLearningStrategy: () => requestFlexible<any>("/api/v1/learning/strategy"),
+
+  // System & Costs
+  getSystemStatus: () => request<any>("/api/v1/system/status"),
+  getSystemProviders: () => request<any>("/api/v1/system/providers"),
+  getCosts: () => request<any>("/api/v1/system/costs"),
 };
+
 

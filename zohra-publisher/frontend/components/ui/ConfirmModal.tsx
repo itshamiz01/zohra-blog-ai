@@ -7,6 +7,7 @@ interface ConfirmModalProps {
   description: string;
   confirmLabel?: string;
   isDangerous?: boolean;
+  defaultReason?: string;
   onConfirm: (reason: string) => void;
   onCancel: () => void;
 }
@@ -17,10 +18,15 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   description,
   confirmLabel = "Confirm Action",
   isDangerous = true,
+  defaultReason = "",
   onConfirm,
   onCancel,
 }) => {
   const [reason, setReason] = useState("");
+
+  React.useEffect(() => {
+    if (isOpen) setReason(defaultReason);
+  }, [isOpen, defaultReason]);
 
   if (!isOpen) return null;
 
@@ -41,7 +47,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
 
         <div className="mt-4">
           <label className="block text-xs font-medium text-stone-500 mb-1">
-            Audited Operational Reason (Required)
+            Reason (filled in for you — edit if you like)
           </label>
           <input
             type="text"
