@@ -38,6 +38,11 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "orjson>=3.10.0",
     "python-multipart>=0.0.9",
+    # Serverless runtime additions (imported at startup; SQLite driver)
+    "aiosqlite>=0.20.0",
+    "openai>=1.30.0",
+    "Pillow>=10.3.0",
+    "beautifulsoup4>=4.12.0",
 ]
 
 [project.optional-dependencies]
@@ -76,3 +81,6 @@ python_version = "3.12"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
+
+[tool.vercel]
+entrypoint = "vercel_entry:app"
